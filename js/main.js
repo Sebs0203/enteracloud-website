@@ -1,0 +1,185 @@
+/* =============================================================
+   ENTERACLOUD — editorial interactions
+   Reference: lessestudio.com — mask reveals, accordion,
+   smooth marquee, parallax. Vanilla JS, a11y-aware.
+   ============================================================= */
+(function () {
+  'use strict';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- NAV background on scroll ---------- */
+  const nav = document.getElementById('nav');
+  const onScroll = () => { nav.classList.toggle('scrolled', window.scrollY > 60); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---------- Mobile menu ---------- */
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open'); toggle.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+    }));
+    // expandable Services group inside the mobile menu
+    const mGroupToggle = document.getElementById('mServicesToggle');
+    if (mGroupToggle) {
+      const group = mGroupToggle.closest('.m-group');
+      mGroupToggle.addEventListener('click', () => {
+        const open = group.classList.toggle('open');
+        mGroupToggle.setAttribute('aria-expanded', String(open));
+      });
+    }
+  }
+
+  /* ---------- Mega menu (Services) ---------- */
+  const megaItem = document.querySelector('.nav-item--mega');
+  if (megaItem) {
+    const trigger = megaItem.querySelector('.nav-mega-trigger');
+    const nav = document.getElementById('nav');
+    let closeTimer;
+    const openMega = () => {
+      clearTimeout(closeTimer);
+      megaItem.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+      if (nav) nav.classList.add('mega-open');
+    };
+    const closeMega = () => {
+      megaItem.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      if (nav) nav.classList.remove('mega-open');
+    };
+    const closeSoon = () => { clearTimeout(closeTimer); closeTimer = setTimeout(closeMega, 140); };
+    megaItem.addEventListener('mouseenter', openMega);
+    megaItem.addEventListener('mouseleave', closeSoon);
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      megaItem.classList.contains('open') ? closeMega() : openMega();
+    });
+    trigger.addEventListener('focus', openMega);
+    megaItem.addEventListener('focusout', (e) => {
+      if (!megaItem.contains(e.relatedTarget)) closeMega();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMega(); });
+    megaItem.querySelectorAll('.mega a').forEach(a => a.addEventListener('click', closeMega));
+  }
+
+  /* ---------- Scroll reveals (mask + fade + stagger) ---------- */
+  const revealEls = document.querySelectorAll('.reveal-mask, [data-fade], [data-stagger]');
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add(e.target.classList.contains('reveal-mask') ? 'is-in' : 'is-in');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-in'));
+  }
+
+  /* ---------- Count-up stats ---------- */
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+  const animateCount = (el) => {
+    const target = parseFloat(el.getAttribute('data-count'));
+    const suffix = el.getAttribute('data-suffix') || '';
+    if (reduce) { el.textContent = target.toLocaleString() + suffix; return; }
+    const dur = 1600; let start = null;
+    const tick = (ts) => {
+      if (start === null) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.floor(easeOutCubic(p) * target).toLocaleString() + (p >= 1 ? suffix : '');
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const stats = document.getElementById('stats');
+  if (stats) {
+    if ('IntersectionObserver' in window) {
+      const so = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.querySelectorAll('[data-count]').forEach(animateCount); obs.unobserve(e.target); } });
+      }, { threshold: 0.5 });
+      so.observe(stats);
+    } else { stats.querySelectorAll('[data-count]').forEach(animateCount); }
+  }
+
+  /* ---------- Services accordion ---------- */
+  const list = document.getElementById('svcList');
+  if (list) {
+    const rows = Array.from(list.querySelectorAll('.svc-row'));
+    rows.forEach(row => {
+      const head = row.querySelector('.svc-row__head');
+      head.addEventListener('click', () => {
+        const isOpen = row.classList.contains('open');
+        rows.forEach(r => { r.classList.remove('open'); r.querySelector('.svc-row__head').setAttribute('aria-expanded', 'false'); });
+        if (!isOpen) { row.classList.add('open'); head.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+    // open first by default for visual interest
+    if (rows[0]) { rows[0].classList.add('open'); rows[0].querySelector('.svc-row__head').setAttribute('aria-expanded', 'true'); }
+  }
+
+  /* ---------- Parallax on media ---------- */
+  const px = Array.from(document.querySelectorAll('[data-parallax]'));
+  if (px.length && !reduce) {
+    let ticking = false;
+    const update = () => {
+      const vh = window.innerHeight;
+      px.forEach(el => {
+        const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
+        const r = el.getBoundingClientRect();
+        const offset = (r.top + r.height / 2) - vh / 2;
+        el.style.transform = `translate3d(0, ${(-offset * speed).toFixed(1)}px, 0)`;
+      });
+      ticking = false;
+    };
+    const onS = () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } };
+    window.addEventListener('scroll', onS, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  /* ---------- Hero video graceful fallback ---------- */
+  const video = document.getElementById('heroVideo');
+  if (video) video.addEventListener('error', () => { video.style.display = 'none'; });
+
+  /* ---------- Floating labels ---------- */
+  document.querySelectorAll('.field input, .field textarea, .field select').forEach(input => {
+    const sync = () => input.classList.toggle('filled', !!input.value);
+    input.addEventListener('input', sync);
+    input.addEventListener('change', sync);
+    sync();
+  });
+
+  /* ---------- Contact form (demo) ---------- */
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.innerHTML = '<span class="dot"></span>Message sent <span class="arrow">✓</span>';
+      form.querySelectorAll('input, textarea, select').forEach(i => { i.value = ''; i.classList.remove('filled'); });
+      setTimeout(() => { btn.innerHTML = '<span class="dot"></span>Send message <span class="arrow">→</span>'; }, 3200);
+    });
+  }
+
+  /* ---------- Smooth anchor scroll ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      const y = el.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+})();
