@@ -26,47 +26,55 @@
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       menu.classList.remove('open'); toggle.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
     }));
-    // expandable Services group inside the mobile menu
-    const mGroupToggle = document.getElementById('mServicesToggle');
-    if (mGroupToggle) {
-      const group = mGroupToggle.closest('.m-group');
-      mGroupToggle.addEventListener('click', () => {
+    // expandable groups (Services, Industries) inside the mobile menu
+    menu.querySelectorAll('.m-group__head').forEach(head => {
+      const group = head.closest('.m-group');
+      head.addEventListener('click', () => {
         const open = group.classList.toggle('open');
-        mGroupToggle.setAttribute('aria-expanded', String(open));
+        head.setAttribute('aria-expanded', String(open));
       });
-    }
+    });
   }
 
-  /* ---------- Mega menu (Services) ---------- */
-  const megaItem = document.querySelector('.nav-item--mega');
-  if (megaItem) {
-    const trigger = megaItem.querySelector('.nav-mega-trigger');
+  /* ---------- Mega menus (Services, Industries) ---------- */
+  const megaItems = Array.from(document.querySelectorAll('.nav-item--mega'));
+  if (megaItems.length) {
     const nav = document.getElementById('nav');
-    let closeTimer;
-    const openMega = () => {
-      clearTimeout(closeTimer);
-      megaItem.classList.add('open');
-      trigger.setAttribute('aria-expanded', 'true');
-      if (nav) nav.classList.add('mega-open');
+    const syncNav = () => {
+      const anyOpen = megaItems.some(m => m.classList.contains('open'));
+      if (nav) nav.classList.toggle('mega-open', anyOpen);
     };
-    const closeMega = () => {
-      megaItem.classList.remove('open');
-      trigger.setAttribute('aria-expanded', 'false');
-      if (nav) nav.classList.remove('mega-open');
-    };
-    const closeSoon = () => { clearTimeout(closeTimer); closeTimer = setTimeout(closeMega, 140); };
-    megaItem.addEventListener('mouseenter', openMega);
-    megaItem.addEventListener('mouseleave', closeSoon);
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      megaItem.classList.contains('open') ? closeMega() : openMega();
+    megaItems.forEach(megaItem => {
+      const trigger = megaItem.querySelector('.nav-mega-trigger');
+      let closeTimer;
+      const openMega = () => {
+        clearTimeout(closeTimer);
+        megaItems.forEach(m => { if (m !== megaItem) { m.classList.remove('open'); m.querySelector('.nav-mega-trigger').setAttribute('aria-expanded', 'false'); } });
+        megaItem.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+        syncNav();
+      };
+      const closeMega = () => {
+        megaItem.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+        syncNav();
+      };
+      const closeSoon = () => { clearTimeout(closeTimer); closeTimer = setTimeout(closeMega, 140); };
+      megaItem.addEventListener('mouseenter', openMega);
+      megaItem.addEventListener('mouseleave', closeSoon);
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        megaItem.classList.contains('open') ? closeMega() : openMega();
+      });
+      trigger.addEventListener('focus', openMega);
+      megaItem.addEventListener('focusout', (e) => {
+        if (!megaItem.contains(e.relatedTarget)) closeMega();
+      });
+      megaItem.querySelectorAll('.mega a').forEach(a => a.addEventListener('click', closeMega));
     });
-    trigger.addEventListener('focus', openMega);
-    megaItem.addEventListener('focusout', (e) => {
-      if (!megaItem.contains(e.relatedTarget)) closeMega();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') megaItems.forEach(m => { m.classList.remove('open'); m.querySelector('.nav-mega-trigger').setAttribute('aria-expanded', 'false'); syncNav(); });
     });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMega(); });
-    megaItem.querySelectorAll('.mega a').forEach(a => a.addEventListener('click', closeMega));
   }
 
   /* ---------- Scroll reveals (mask + fade + stagger) ---------- */
