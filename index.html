@@ -632,7 +632,7 @@
       <form class="form" id="contactForm" novalidate data-fade>
         <div class="field"><input type="text" id="name" name="name" autocomplete="name" required /><label for="name">Your name</label></div>
         <div class="field"><input type="email" id="email" name="email" autocomplete="email" required /><label for="email">Work email</label></div>
-        <div class="field"><input type="text" id="company" name="company" autocomplete="organization" /><label for="company">Company</label></div>
+        <div class="field"><input type="text" id="company" name="company" autocomplete="organization" required /><label for="company">Company</label></div>
         <div class="field">
           <select id="interest" name="interest" required>
             <option value="" selected disabled hidden></option>
@@ -642,6 +642,10 @@
           <label for="interest">What do you need?</label>
         </div>
         <div class="field"><textarea id="msg" name="msg" rows="3"></textarea><label for="msg">What are you running today?</label></div>
+        <label class="consent" style="display:flex;gap:.55rem;align-items:flex-start;font-size:.82rem;line-height:1.45;margin:.1rem 0 .35rem;opacity:.85;cursor:pointer">
+          <input type="checkbox" id="consent" name="consent" required style="margin-top:.2rem;flex:0 0 auto" />
+          <span>I agree to be contacted and understand my information is processed and stored in the United States.</span>
+        </label>
         <button class="btn" type="submit"><span class="dot"></span>Send message<span class="arrow">→</span></button>
         <p class="form__note">Response within one business day · San Diego &amp; Las Vegas</p>
       </form>
@@ -695,6 +699,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script src="js/beacon.js?v=1"></script>
 </body>
 </html>
