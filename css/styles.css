@@ -235,7 +235,12 @@ ul { list-style: none; }
 .mega__aside .eyebrow { color: var(--muted); }
 .mega__lead { font-family: var(--font-display); font-size: clamp(1.5rem,2vw,2rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1.04; color: var(--ink); }
 .mega__note { font-size: .92rem; line-height: 1.5; color: var(--ink-2); max-width: 30ch; }
-.mega__aside .ulink { margin-top: 6px; color: var(--accent); font-size: .95rem; }
+.mega__aside .ulink { margin-top: 6px; color: var(--accent); font-size: .95rem; align-self: flex-start; gap: 8px; }
+.mega__aside .ulink::after { display: none; }
+.mega__aside .ulink__t { position: relative; }
+.mega__aside .ulink__t::after { content: ""; position: absolute; left: 0; bottom: -3px; height: 1px; width: 100%; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease-expo); }
+.mega__aside .ulink:hover .ulink__t::after { transform: scaleX(1); transform-origin: left; }
+.mega__aside .ulink:hover .arrow { transform: translateX(4px); }
 
 .mega__grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, minmax(168px, 1fr)); gap: 0; width: 100%; align-items: stretch; }
 .mega__grid .mega__item { display: flex; flex-direction: column; justify-content: flex-start; gap: 12px; width: 100%; height: 100%; min-height: 168px; margin: 0; padding: 26px 28px; border: none; border-radius: 0; background: transparent; transition: background .3s var(--ease-out); }
