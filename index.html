@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>Enteracloud — Managed IT & data centers, handled. San Diego & Las Vegas.</title>
 <meta name="description" content="Enteracloud is a managed IT and data center studio operating two owned facilities in San Diego and Las Vegas. 3,000+ servers, 24/7 operations, owned infrastructure — not rented." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=4" />
+<link rel="stylesheet" href="css/styles.css?v=14" />
 </head>
 <body class="has-dark-hero">
 
@@ -36,10 +39,10 @@
                 <span class="mega__title">Managed IT <span class="arrow" aria-hidden="true">→</span></span>
                 <span class="mega__desc">Monitoring, patching, and helpdesk on hardware we own.</span>
               </a>
-              <a class="mega__item" href="services/colocation.html">
+              <a class="mega__item" href="services/ai-automations.html">
                 <span class="mega__num">02</span>
-                <span class="mega__title">Colocation <span class="arrow" aria-hidden="true">→</span></span>
-                <span class="mega__desc">Rack, cage, and cabinet space in facilities we own.</span>
+                <span class="mega__title">AI Automations <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Custom AI agents and intelligent workflow automation.</span>
               </a>
               <a class="mega__item" href="services/private-cloud.html">
                 <span class="mega__num">03</span>
@@ -113,7 +116,7 @@
       </div>
       <a href="#clients">Clients</a>
     </nav>
-    <a class="btn nav-cta" href="#contact"><span class="dot"></span>Start a project</a>
+    <a class="btn nav-cta" href="#contact"><span class="dot"></span>Book a call</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -124,7 +127,7 @@
     <div class="m-group__panel" id="mServicesPanel">
       <div class="m-group__list">
         <a href="services/managed-it.html"><span class="m-sub__num">01</span>Managed IT</a>
-        <a href="services/colocation.html"><span class="m-sub__num">02</span>Colocation</a>
+        <a href="services/ai-automations.html"><span class="m-sub__num">02</span>AI Automations</a>
         <a href="services/private-cloud.html"><span class="m-sub__num">03</span>Private Cloud</a>
         <a href="services/cybersecurity.html"><span class="m-sub__num">04</span>Cybersecurity</a>
         <a href="services/backup-dr.html"><span class="m-sub__num">05</span>Backup &amp; DR</a>
@@ -175,7 +178,7 @@
     <div class="hero__sub">
       <p class="lead">We design, run, and own the infrastructure behind your business two data centers, 3,000+ servers, one team accountable end to end.</p>
       <div class="hero__cta">
-        <a class="btn btn--light" href="#contact"><span class="dot"></span>Start a project<span class="arrow">→</span></a>
+        <a class="btn btn--light" href="#contact"><span class="dot"></span>Book a call<span class="arrow">→</span></a>
         <a class="btn btn--ghost" href="#services" style="color:#EFECE6;border-color:rgba(239,236,230,.3)"><span>Our services</span></a>
       </div>
     </div>
@@ -185,8 +188,8 @@
 <!-- ============ MARQUEE ============ -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee__track">
-    <span>Managed IT</span><span>Colocation</span><span>Private Cloud</span><span>Cybersecurity</span><span>Backup &amp; DR</span><span>Network</span>
-    <span>Managed IT</span><span>Colocation</span><span>Private Cloud</span><span>Cybersecurity</span><span>Backup &amp; DR</span><span>Network</span>
+    <span>Managed IT</span><span>AI Automations</span><span>Private Cloud</span><span>Cybersecurity</span><span>Backup &amp; DR</span><span>Network</span>
+    <span>Managed IT</span><span>AI Automations</span><span>Private Cloud</span><span>Cybersecurity</span><span>Backup &amp; DR</span><span>Network</span>
   </div>
 </div>
 
@@ -195,7 +198,7 @@
   <div class="wrap">
     <div class="statement__row">
       <div class="reveal-mask" data-reveal-group><span class="eyebrow">[ Who we are ]</span></div>
-      <p class="big" data-fade>Owned infrastructure, <em>not rented.</em> We operate our own servers and physical infrastructure, giving us complete control over every layer of the stack, with no intermediaries, no external dependencies, and no compromises.</p>
+      <p class="big" data-fade>Owned infrastructure, <em>not rented.</em> We run our own servers and hardware full control, no intermediaries, no compromises.</p>
     </div>
     <div class="statement__foot" data-stagger id="stats">
       <div><div class="n"><span data-count="3000" data-suffix="+">0</span></div><div class="t">Servers under management</div></div>
@@ -213,90 +216,81 @@
       <h2 class="display d-md" style="margin-top:18px;max-width:18ch">One company. <span class="serif-italic">Every system.</span></h2>
     </div>
 
-    <div class="svc-list" id="svcList">
-      <!-- 1 -->
-      <div class="svc-row">
-        <button class="svc-row__head" aria-expanded="false">
-          <span class="svc-row__num">01</span>
-          <span class="svc-row__title">Managed IT</span>
-          <span class="svc-row__plus" aria-hidden="true"></span>
-        </button>
-        <div class="svc-row__panel"><div><div class="svc-row__inner">
-          <span></span>
-          <p class="svc-row__desc">Full-stack monitoring, patching, and helpdesk on hardware we own and staff we employ. We run your environment so your team builds the business.</p>
-          <div class="svc-tags"><span>24/7 NOC</span><span>Proactive patching</span><span>US helpdesk</span><span>Lifecycle planning</span></div>
-          <a class="ulink" href="services/managed-it.html">Learn more <span class="arrow">↗</span></a>
-        </div></div></div>
+    <div class="svc-showcase" id="svcShowcase">
+      <!-- LEFT: media that swaps on hover -->
+      <div class="svc-showcase__media" data-fade>
+        <div class="svc-media">
+          <figure class="svc-media__item is-active" data-media="0">
+            <span class="svc-media__label">01 / Managed IT</span>
+          </figure>
+          <figure class="svc-media__item" data-media="1">
+            <span class="svc-media__label">02 / AI Automations</span>
+          </figure>
+          <figure class="svc-media__item" data-media="2">
+            <span class="svc-media__label">03 / Private Cloud</span>
+          </figure>
+          <figure class="svc-media__item" data-media="3">
+            <span class="svc-media__label">04 / Cybersecurity</span>
+          </figure>
+          <figure class="svc-media__item" data-media="4">
+            <span class="svc-media__label">05 / Backup &amp; DR</span>
+          </figure>
+          <figure class="svc-media__item" data-media="5">
+            <span class="svc-media__label">06 / Network</span>
+          </figure>
+        </div>
       </div>
-      <!-- 2 -->
-      <div class="svc-row">
-        <button class="svc-row__head" aria-expanded="false">
-          <span class="svc-row__num">02</span>
-          <span class="svc-row__title">Colocation</span>
-          <span class="svc-row__plus" aria-hidden="true"></span>
-        </button>
-        <div class="svc-row__panel"><div><div class="svc-row__inner">
-          <span></span>
-          <p class="svc-row__desc">Rack, cage, and cabinet space in facilities we own outright. Redundant power, precision cooling, carrier choice, and remote hands whenever you need them.</p>
-          <div class="svc-tags"><span>2N power</span><span>N+1 cooling</span><span>6 carriers</span><span>Remote hands</span></div>
-          <a class="ulink" href="services/colocation.html">Learn more <span class="arrow">↗</span></a>
-        </div></div></div>
-      </div>
-      <!-- 3 -->
-      <div class="svc-row">
-        <button class="svc-row__head" aria-expanded="false">
-          <span class="svc-row__num">03</span>
-          <span class="svc-row__title">Private Cloud</span>
-          <span class="svc-row__plus" aria-hidden="true"></span>
-        </button>
-        <div class="svc-row__panel"><div><div class="svc-row__inner">
-          <span></span>
-          <p class="svc-row__desc">Dedicated compute and storage on our hardware, billed predictably. Cloud economics with single-tenant control — and no surprise egress fees.</p>
-          <div class="svc-tags"><span>Dedicated hosts</span><span>Flat billing</span><span>VMware / KVM</span><span>Built-in DR</span></div>
-          <a class="ulink" href="services/private-cloud.html">Learn more <span class="arrow">↗</span></a>
-        </div></div></div>
-      </div>
-      <!-- 4 -->
-      <div class="svc-row">
-        <button class="svc-row__head" aria-expanded="false">
-          <span class="svc-row__num">04</span>
-          <span class="svc-row__title">Cybersecurity</span>
-          <span class="svc-row__plus" aria-hidden="true"></span>
-        </button>
-        <div class="svc-row__panel"><div><div class="svc-row__inner">
-          <span></span>
-          <p class="svc-row__desc">Layered defense — EDR, firewalls, SIEM, and a 24/7 SOC. We don't just deploy tools, we operate them and keep your audits boring.</p>
-          <div class="svc-tags"><span>Managed EDR</span><span>24/7 SOC</span><span>HIPAA · SOC 2 · PCI</span></div>
-          <a class="ulink" href="services/cybersecurity.html">Learn more <span class="arrow">↗</span></a>
-        </div></div></div>
-      </div>
-      <!-- 5 -->
-      <div class="svc-row">
-        <button class="svc-row__head" aria-expanded="false">
-          <span class="svc-row__num">05</span>
-          <span class="svc-row__title">Backup &amp; DR</span>
-          <span class="svc-row__plus" aria-hidden="true"></span>
-        </button>
-        <div class="svc-row__panel"><div><div class="svc-row__inner">
-          <span></span>
-          <p class="svc-row__desc">Replicated across both data centers, 600 miles apart, with recovery we actually test. Backups that sit unverified aren't a plan — they're a hope.</p>
-          <div class="svc-tags"><span>Cross-site replication</span><span>Immutable</span><span>Quarterly drills</span></div>
-          <a class="ulink" href="services/backup-dr.html">Learn more <span class="arrow">↗</span></a>
-        </div></div></div>
-      </div>
-      <!-- 6 -->
-      <div class="svc-row">
-        <button class="svc-row__head" aria-expanded="false">
-          <span class="svc-row__num">06</span>
-          <span class="svc-row__title">Network</span>
-          <span class="svc-row__plus" aria-hidden="true"></span>
-        </button>
-        <div class="svc-row__panel"><div><div class="svc-row__inner">
-          <span></span>
-          <p class="svc-row__desc">Redundant fiber, multi-carrier BGP, DDoS scrubbing, and direct cloud on-ramps — engineered so a cut line or a flood never becomes your outage.</p>
-          <div class="svc-tags"><span>Diverse fiber</span><span>Multi-carrier BGP</span><span>DDoS scrubbing</span><span>Cloud on-ramps</span></div>
-          <a class="ulink" href="services/network.html">Learn more <span class="arrow">↗</span></a>
-        </div></div></div>
+
+      <!-- RIGHT: service rows that drive the media -->
+      <div class="svc-showcase__list" id="svcList" data-stagger>
+        <a class="svc-item is-active" href="services/managed-it.html" data-media="0">
+          <div class="svc-item__main">
+            <span class="svc-item__num">01</span>
+            <h3 class="svc-item__title">Managed IT</h3>
+          </div>
+          <p class="svc-item__desc">Full-stack monitoring, patching, and helpdesk on hardware we own and staff we employ — we run your environment so your team builds the business.</p>
+          <span class="svc-item__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="svc-item" href="services/ai-automations.html" data-media="1">
+          <div class="svc-item__main">
+            <span class="svc-item__num">02</span>
+            <h3 class="svc-item__title">AI Automations</h3>
+          </div>
+          <p class="svc-item__desc">Custom AI agents and workflow automation built into your stack — smart routing, task handling, and intelligent assistants that run on infrastructure we own and operate.</p>
+          <span class="svc-item__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="svc-item" href="services/private-cloud.html" data-media="2">
+          <div class="svc-item__main">
+            <span class="svc-item__num">03</span>
+            <h3 class="svc-item__title">Private Cloud</h3>
+          </div>
+          <p class="svc-item__desc">Dedicated compute and storage on our hardware, billed predictably — cloud economics with single-tenant control and no surprise egress fees.</p>
+          <span class="svc-item__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="svc-item" href="services/cybersecurity.html" data-media="3">
+          <div class="svc-item__main">
+            <span class="svc-item__num">04</span>
+            <h3 class="svc-item__title">Cybersecurity</h3>
+          </div>
+          <p class="svc-item__desc">Layered defense — EDR, firewalls, SIEM, and a 24/7 SOC. We don't just deploy the tools, we operate them and keep your audits boring.</p>
+          <span class="svc-item__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="svc-item" href="services/backup-dr.html" data-media="4">
+          <div class="svc-item__main">
+            <span class="svc-item__num">05</span>
+            <h3 class="svc-item__title">Backup &amp; DR</h3>
+          </div>
+          <p class="svc-item__desc">Replicated across both data centers, 600 miles apart, with recovery we actually test — because unverified backups are a hope, not a plan.</p>
+          <span class="svc-item__arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="svc-item" href="services/network.html" data-media="5">
+          <div class="svc-item__main">
+            <span class="svc-item__num">06</span>
+            <h3 class="svc-item__title">Network</h3>
+          </div>
+          <p class="svc-item__desc">Redundant fiber, multi-carrier BGP, DDoS scrubbing, and direct cloud on-ramps — engineered so a cut line never becomes your outage.</p>
+          <span class="svc-item__arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
   </div>
@@ -692,7 +686,7 @@
         <div class="field">
           <select id="interest" name="interest" required>
             <option value="" selected disabled hidden></option>
-            <option>Managed IT</option><option>Colocation</option><option>Private Cloud</option>
+            <option>Managed IT</option><option>AI Automations</option><option>Private Cloud</option>
             <option>Cybersecurity</option><option>Backup &amp; DR</option><option>Network</option>
           </select>
           <label for="interest">What do you need?</label>
@@ -723,7 +717,7 @@
         <h5>Services</h5>
         <ul>
           <li><a href="services/managed-it.html">Managed IT</a></li>
-          <li><a href="services/colocation.html">Colocation</a></li>
+          <li><a href="services/ai-automations.html">AI Automations</a></li>
           <li><a href="services/private-cloud.html">Private Cloud</a></li>
           <li><a href="services/cybersecurity.html">Cybersecurity</a></li>
           <li><a href="services/backup-dr.html">Backup &amp; DR</a></li>
@@ -755,7 +749,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=3"></script>
+<script src="js/main.js?v=6"></script>
 <script src="js/beacon.js?v=1"></script>
 <script src="js/vendor/rrweb.min.js?v=2.0.1" defer></script>
 <script src="js/replay.js?v=1" defer></script>
