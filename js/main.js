@@ -118,38 +118,19 @@
     } else { stats.querySelectorAll('[data-count]').forEach(animateCount); }
   }
 
-  /* ---------- Services showcase (hover on desktop, scroll-driven on mobile) ---------- */
-  const svcList = document.getElementById('svcList');
-  const svcShowcase = document.getElementById('svcShowcase');
-  if (svcList && svcShowcase) {
-    const items = Array.from(svcList.querySelectorAll('.svc-item'));
-    const media = Array.from(svcShowcase.querySelectorAll('.svc-media__item'));
-    const setActive = (idx) => {
-      items.forEach((it, i) => it.classList.toggle('is-active', i === idx));
-      media.forEach((m, i) => m.classList.toggle('is-active', i === idx));
-    };
-    const stackedMQ = window.matchMedia('(max-width: 900px)');
-
-    // Desktop: image swaps on hover/focus of each row.
-    items.forEach((item, i) => {
-      item.addEventListener('mouseenter', () => { if (!stackedMQ.matches) setActive(i); });
-      item.addEventListener('focus', () => setActive(i));
+  /* ---------- Services accordion ---------- */
+  const list = document.getElementById('svcList');
+  if (list) {
+    const rows = Array.from(list.querySelectorAll('.svc-row'));
+    rows.forEach(row => {
+      const head = row.querySelector('.svc-row__head');
+      head.addEventListener('click', () => {
+        const isOpen = row.classList.contains('open');
+        rows.forEach(r => { r.classList.remove('open'); r.querySelector('.svc-row__head').setAttribute('aria-expanded', 'false'); });
+        if (!isOpen) { row.classList.add('open'); head.setAttribute('aria-expanded', 'true'); }
+      });
     });
-
-    // Mobile/stacked: pinned image follows whichever row is near viewport center.
-    let io = null;
-    const enableScrollSync = () => {
-      if (io || !('IntersectionObserver' in window)) return;
-      io = new IntersectionObserver((entries) => {
-        if (!stackedMQ.matches) return;
-        entries.forEach(e => { if (e.isIntersecting) setActive(items.indexOf(e.target)); });
-      }, { rootMargin: '-55% 0px -33% 0px', threshold: 0 });
-      items.forEach(item => io.observe(item));
-    };
-    const disableScrollSync = () => { if (io) { io.disconnect(); io = null; } };
-    const syncMode = () => { if (stackedMQ.matches) enableScrollSync(); else disableScrollSync(); };
-    syncMode();
-    (stackedMQ.addEventListener ? stackedMQ.addEventListener('change', syncMode) : stackedMQ.addListener(syncMode));
+    if (rows[0]) { rows[0].classList.add('open'); rows[0].querySelector('.svc-row__head').setAttribute('aria-expanded', 'true'); }
   }
 
   /* ---------- Parallax on media ---------- */
@@ -214,7 +195,7 @@
           if (consent) consent.checked = false;
           reset(btn);
         })
-        .catch(() => { btn.innerHTML = '<span class="dot"></span>Couldn\'t send — email ops@enteracloud.com <span class="arrow">→</span>'; setTimeout(() => { btn.innerHTML = '<span class="dot"></span>Send message <span class="arrow">→</span>'; }, 4500); });
+        .catch(() => { btn.innerHTML = '<span class="dot"></span>Couldn\'t send — email sales@enteracloud.com <span class="arrow">→</span>'; setTimeout(() => { btn.innerHTML = '<span class="dot"></span>Send message <span class="arrow">→</span>'; }, 4500); });
     });
   }
 

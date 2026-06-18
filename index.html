@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=14" />
+<link rel="stylesheet" href="css/styles.css?v=23" />
 </head>
 <body class="has-dark-hero">
 
@@ -116,7 +116,13 @@
       </div>
       <a href="#clients">Clients</a>
     </nav>
-    <a class="btn nav-cta" href="#contact"><span class="dot"></span>Book a call</a>
+    <div class="nav-actions">
+      <div class="nav-contact" aria-label="Direct contact">
+        <a href="tel:+18584338650" class="nav-contact__phone"><span class="nav-contact__dot" aria-hidden="true"></span>858 433 8650</a>
+        <a href="mailto:sales@enteracloud.com" class="nav-contact__email">sales@enteracloud.com</a>
+      </div>
+      <a class="btn nav-cta" href="#contact"><span class="dot"></span>Book a call</a>
+    </div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -151,6 +157,11 @@
   </div>
   <a href="#clients">Clients</a>
   <a href="#contact">Start a project</a>
+  <div class="m-contact">
+    <span class="m-contact__label">Direct contact</span>
+    <a href="tel:+18584338650">858 433 8650</a>
+    <a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a>
+  </div>
 </nav>
 
 <main>
@@ -216,81 +227,101 @@
       <h2 class="display d-md" style="margin-top:18px;max-width:18ch">One company. <span class="serif-italic">Every system.</span></h2>
     </div>
 
-    <div class="svc-showcase" id="svcShowcase">
-      <!-- LEFT: media that swaps on hover -->
-      <div class="svc-showcase__media" data-fade>
-        <div class="svc-media">
-          <figure class="svc-media__item is-active" data-media="0">
-            <span class="svc-media__label">01 / Managed IT</span>
-          </figure>
-          <figure class="svc-media__item" data-media="1">
-            <span class="svc-media__label">02 / AI Automations</span>
-          </figure>
-          <figure class="svc-media__item" data-media="2">
-            <span class="svc-media__label">03 / Private Cloud</span>
-          </figure>
-          <figure class="svc-media__item" data-media="3">
-            <span class="svc-media__label">04 / Cybersecurity</span>
-          </figure>
-          <figure class="svc-media__item" data-media="4">
-            <span class="svc-media__label">05 / Backup &amp; DR</span>
-          </figure>
-          <figure class="svc-media__item" data-media="5">
-            <span class="svc-media__label">06 / Network</span>
-          </figure>
-        </div>
+    <div class="svc-list" id="svcList">
+      <div class="svc-row">
+        <button class="svc-row__head" aria-expanded="false">
+          <span class="svc-row__num">01</span>
+          <span class="svc-row__title">Managed IT</span>
+          <span class="svc-row__plus" aria-hidden="true"></span>
+        </button>
+        <div class="svc-row__panel"><div><div class="svc-row__inner">
+          <span></span>
+          <p class="svc-row__desc">Full-stack monitoring, patching, and helpdesk on hardware we own and staff we employ — we run your environment so your team builds the business.</p>
+          <div class="svc-tags"><span>24/7 NOC</span><span>Proactive patching</span><span>US helpdesk</span><span>Lifecycle planning</span></div>
+          <a class="ulink" href="services/managed-it.html">Learn more <span class="arrow">↗</span></a>
+        </div></div></div>
       </div>
+      <div class="svc-row">
+        <button class="svc-row__head" aria-expanded="false">
+          <span class="svc-row__num">02</span>
+          <span class="svc-row__title">AI Automations</span>
+          <span class="svc-row__plus" aria-hidden="true"></span>
+        </button>
+        <div class="svc-row__panel"><div><div class="svc-row__inner">
+          <span></span>
+          <p class="svc-row__desc">Custom AI agents and workflow automation built into your stack — smart routing, task handling, and intelligent assistants that run on infrastructure we own and operate.</p>
+          <div class="svc-tags"><span>Custom agents</span><span>Workflow automation</span><span>Smart routing</span><span>API integrations</span></div>
+          <a class="ulink" href="services/ai-automations.html">Learn more <span class="arrow">↗</span></a>
+        </div></div></div>
+      </div>
+      <div class="svc-row">
+        <button class="svc-row__head" aria-expanded="false">
+          <span class="svc-row__num">03</span>
+          <span class="svc-row__title">Private Cloud</span>
+          <span class="svc-row__plus" aria-hidden="true"></span>
+        </button>
+        <div class="svc-row__panel"><div><div class="svc-row__inner">
+          <span></span>
+          <p class="svc-row__desc">Dedicated compute and storage on our hardware, billed predictably — cloud economics with single-tenant control and no surprise egress fees.</p>
+          <div class="svc-tags"><span>Dedicated hosts</span><span>Flat billing</span><span>VMware / KVM</span><span>Built-in DR</span></div>
+          <a class="ulink" href="services/private-cloud.html">Learn more <span class="arrow">↗</span></a>
+        </div></div></div>
+      </div>
+      <div class="svc-row">
+        <button class="svc-row__head" aria-expanded="false">
+          <span class="svc-row__num">04</span>
+          <span class="svc-row__title">Cybersecurity</span>
+          <span class="svc-row__plus" aria-hidden="true"></span>
+        </button>
+        <div class="svc-row__panel"><div><div class="svc-row__inner">
+          <span></span>
+          <p class="svc-row__desc">Layered defense — EDR, firewalls, SIEM, and a 24/7 SOC. We don't just deploy the tools, we operate them and keep your audits boring.</p>
+          <div class="svc-tags"><span>Managed EDR</span><span>24/7 SOC</span><span>HIPAA · SOC 2 · PCI</span></div>
+          <a class="ulink" href="services/cybersecurity.html">Learn more <span class="arrow">↗</span></a>
+        </div></div></div>
+      </div>
+      <div class="svc-row">
+        <button class="svc-row__head" aria-expanded="false">
+          <span class="svc-row__num">05</span>
+          <span class="svc-row__title">Backup &amp; DR</span>
+          <span class="svc-row__plus" aria-hidden="true"></span>
+        </button>
+        <div class="svc-row__panel"><div><div class="svc-row__inner">
+          <span></span>
+          <p class="svc-row__desc">Replicated across both data centers, 600 miles apart, with recovery we actually test — because unverified backups are a hope, not a plan.</p>
+          <div class="svc-tags"><span>Cross-site replication</span><span>Immutable</span><span>Quarterly drills</span></div>
+          <a class="ulink" href="services/backup-dr.html">Learn more <span class="arrow">↗</span></a>
+        </div></div></div>
+      </div>
+      <div class="svc-row">
+        <button class="svc-row__head" aria-expanded="false">
+          <span class="svc-row__num">06</span>
+          <span class="svc-row__title">Network</span>
+          <span class="svc-row__plus" aria-hidden="true"></span>
+        </button>
+        <div class="svc-row__panel"><div><div class="svc-row__inner">
+          <span></span>
+          <p class="svc-row__desc">Redundant fiber, multi-carrier BGP, DDoS scrubbing, and direct cloud on-ramps — engineered so a cut line never becomes your outage.</p>
+          <div class="svc-tags"><span>Diverse fiber</span><span>Multi-carrier BGP</span><span>DDoS scrubbing</span><span>Cloud on-ramps</span></div>
+          <a class="ulink" href="services/network.html">Learn more <span class="arrow">↗</span></a>
+        </div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <!-- RIGHT: service rows that drive the media -->
-      <div class="svc-showcase__list" id="svcList" data-stagger>
-        <a class="svc-item is-active" href="services/managed-it.html" data-media="0">
-          <div class="svc-item__main">
-            <span class="svc-item__num">01</span>
-            <h3 class="svc-item__title">Managed IT</h3>
-          </div>
-          <p class="svc-item__desc">Full-stack monitoring, patching, and helpdesk on hardware we own and staff we employ — we run your environment so your team builds the business.</p>
-          <span class="svc-item__arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="svc-item" href="services/ai-automations.html" data-media="1">
-          <div class="svc-item__main">
-            <span class="svc-item__num">02</span>
-            <h3 class="svc-item__title">AI Automations</h3>
-          </div>
-          <p class="svc-item__desc">Custom AI agents and workflow automation built into your stack — smart routing, task handling, and intelligent assistants that run on infrastructure we own and operate.</p>
-          <span class="svc-item__arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="svc-item" href="services/private-cloud.html" data-media="2">
-          <div class="svc-item__main">
-            <span class="svc-item__num">03</span>
-            <h3 class="svc-item__title">Private Cloud</h3>
-          </div>
-          <p class="svc-item__desc">Dedicated compute and storage on our hardware, billed predictably — cloud economics with single-tenant control and no surprise egress fees.</p>
-          <span class="svc-item__arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="svc-item" href="services/cybersecurity.html" data-media="3">
-          <div class="svc-item__main">
-            <span class="svc-item__num">04</span>
-            <h3 class="svc-item__title">Cybersecurity</h3>
-          </div>
-          <p class="svc-item__desc">Layered defense — EDR, firewalls, SIEM, and a 24/7 SOC. We don't just deploy the tools, we operate them and keep your audits boring.</p>
-          <span class="svc-item__arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="svc-item" href="services/backup-dr.html" data-media="4">
-          <div class="svc-item__main">
-            <span class="svc-item__num">05</span>
-            <h3 class="svc-item__title">Backup &amp; DR</h3>
-          </div>
-          <p class="svc-item__desc">Replicated across both data centers, 600 miles apart, with recovery we actually test — because unverified backups are a hope, not a plan.</p>
-          <span class="svc-item__arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="svc-item" href="services/network.html" data-media="5">
-          <div class="svc-item__main">
-            <span class="svc-item__num">06</span>
-            <h3 class="svc-item__title">Network</h3>
-          </div>
-          <p class="svc-item__desc">Redundant fiber, multi-carrier BGP, DDoS scrubbing, and direct cloud on-ramps — engineered so a cut line never becomes your outage.</p>
-          <span class="svc-item__arrow" aria-hidden="true">↗</span>
-        </a>
+<!-- ============ SERVICES CTA ============ -->
+<section class="section section--sm">
+  <div class="wrap">
+    <div class="svc-cta" data-fade>
+      <span class="svc-cta__bg" aria-hidden="true"></span>
+      <div class="svc-cta__inner">
+        <span class="eyebrow">[ Let's talk ]</span>
+        <h2 class="display">Ready to own your <span class="serif-italic">infrastructure?</span></h2>
+        <p class="lead">Two data centers, one team, zero finger-pointing. Talk to an engineer — not a sales bot.</p>
+        <div class="svc-cta__actions">
+          <a class="btn btn--light" href="#contact"><span class="dot"></span>Book a call<span class="arrow">→</span></a>
+        </div>
       </div>
     </div>
   </div>
@@ -309,7 +340,7 @@
     </div>
 
     <div class="split">
-      <div class="media-card" data-fade data-parallax data-speed="0.05">
+      <div class="media-card" data-fade>
         <div class="fallback" aria-hidden="true"></div>
         <svg class="us-map" viewBox="40 279 160 137" role="img" aria-label="Map zoomed to the US Southwest showing the San Diego and Las Vegas data centers and the link between them" preserveAspectRatio="xMidYMid meet">
 <g class="us-states">
@@ -640,24 +671,39 @@
     </div>
     <div class="quotes" data-stagger>
       <article class="quote">
-        <p>"We moved off a hyperscaler and our bill dropped 40% — but the real win is a team that answers the phone and knows our stack."</p>
-        <div class="quote__foot">
-          <div class="quote__who">Regional Healthcare Network</div>
-          <div class="quote__metric">99.98%<small>Uptime over 3 years</small></div>
+        <span class="quote__bg" aria-hidden="true"></span>
+        <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+        <p class="quote__text">We moved off a hyperscaler and our bill dropped 40% — but the real win is a team that answers the phone and knows our stack.</p>
+        <div class="quote__person">
+          <span class="quote__avatar" aria-hidden="true">RH</span>
+          <span class="quote__meta">
+            <span class="quote__name">IT Director</span>
+            <span class="quote__role">Regional Healthcare Network</span>
+          </span>
         </div>
       </article>
       <article class="quote">
-        <p>"During a regional outage, failover to Las Vegas happened before our on-call even woke up. That's what owning both buildings buys you."</p>
-        <div class="quote__foot">
-          <div class="quote__who">Financial Services Firm</div>
-          <div class="quote__metric">&lt;30s<small>Failover, fully automated</small></div>
+        <span class="quote__bg" aria-hidden="true"></span>
+        <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+        <p class="quote__text">During a regional outage, failover to Las Vegas happened before our on-call even woke up. That's what owning both buildings buys you.</p>
+        <div class="quote__person">
+          <span class="quote__avatar" aria-hidden="true">FS</span>
+          <span class="quote__meta">
+            <span class="quote__name">VP of Infrastructure</span>
+            <span class="quote__role">Financial Services Firm</span>
+          </span>
         </div>
       </article>
       <article class="quote">
-        <p>"Audits used to take weeks. With their access logs and documentation, our last SOC 2 was the smoothest we've ever run."</p>
-        <div class="quote__foot">
-          <div class="quote__who">B2B SaaS Platform</div>
-          <div class="quote__metric">0<small>Findings, last audit</small></div>
+        <span class="quote__bg" aria-hidden="true"></span>
+        <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+        <p class="quote__text">Audits used to take weeks. With their access logs and documentation, our last SOC 2 was the smoothest we've ever run.</p>
+        <div class="quote__person">
+          <span class="quote__avatar" aria-hidden="true">BS</span>
+          <span class="quote__meta">
+            <span class="quote__name">Head of Security</span>
+            <span class="quote__role">B2B SaaS Platform</span>
+          </span>
         </div>
       </article>
     </div>
@@ -677,6 +723,13 @@
           <li><span class="n">02</span><div><h4>30 minutes</h4><p>One focused call. We come prepared, we keep it tight.</p></div></li>
           <li><span class="n">03</span><div><h4>Plain language</h4><p>No acronym soup. You'll understand every recommendation we make.</p></div></li>
         </ul>
+        <div class="contact-direct">
+          <p class="contact-direct__label">Prefer direct contact?</p>
+          <div class="contact-direct__links">
+            <a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a>
+            <a href="tel:+18584338650">858 433 8650</a>
+          </div>
+        </div>
       </div>
 
       <form class="form" id="contactForm" novalidate data-fade>
@@ -697,7 +750,7 @@
           <span>I agree to be contacted and understand my information is processed and stored in the United States.</span>
         </label>
         <button class="btn" type="submit"><span class="dot"></span>Send message<span class="arrow">→</span></button>
-        <p class="form__note">Response within one business day · San Diego &amp; Las Vegas</p>
+        <p class="form__note">Response within one business day · San Diego &amp; Las Vegas · <a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a></p>
       </form>
     </div>
   </div>
@@ -734,11 +787,12 @@
         </ul>
       </div>
       <div>
-        <h5>Facilities</h5>
+        <h5>Contact</h5>
         <ul>
+          <li><a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a></li>
+          <li><a href="tel:+18584338650">858 433 8650</a></li>
           <li><a href="#infrastructure">San Diego, CA — DC1</a></li>
           <li><a href="#infrastructure">Las Vegas, NV — DC2</a></li>
-          <li><a href="#contact">ops@enteracloud.com</a></li>
         </ul>
       </div>
     </div>
@@ -749,7 +803,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=6"></script>
+<script src="js/main.js?v=7"></script>
 <script src="js/beacon.js?v=1"></script>
 <script src="js/vendor/rrweb.min.js?v=2.0.1" defer></script>
 <script src="js/replay.js?v=1" defer></script>
