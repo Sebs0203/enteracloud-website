@@ -177,7 +177,9 @@
         btn.innerHTML = '<span class="dot"></span>Please accept to continue <span class="arrow">→</span>'; reset(btn); return;
       }
       const val = (id) => { const el = form.querySelector(id); return el ? el.value.trim() : ''; };
-      const interest = val('#interest'), msg = val('#msg');
+      const interests = [...form.querySelectorAll('input[name="interest"]:checked')].map(el => el.value);
+      const interest = interests.join(', ');
+      const msg = val('#msg');
       const payload = {
         name: val('#name'), email: val('#email'), company: val('#company'),
         message: [interest ? ('Interest: ' + interest) : '', msg].filter(Boolean).join(' — '),
@@ -191,8 +193,10 @@
       }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(() => {
           btn.innerHTML = '<span class="dot"></span>Message sent <span class="arrow">✓</span>';
-          form.querySelectorAll('input, textarea, select').forEach(i => { i.value = ''; i.classList.remove('filled'); });
-          if (consent) consent.checked = false;
+          form.querySelectorAll('input, textarea, select').forEach(i => {
+            if (i.type === 'checkbox' || i.type === 'radio') { i.checked = false; }
+            else { i.value = ''; i.classList.remove('filled'); }
+          });
           reset(btn);
         })
         .catch(() => { btn.innerHTML = '<span class="dot"></span>Couldn\'t send — email sales@enteracloud.com <span class="arrow">→</span>'; setTimeout(() => { btn.innerHTML = '<span class="dot"></span>Send message <span class="arrow">→</span>'; }, 4500); });

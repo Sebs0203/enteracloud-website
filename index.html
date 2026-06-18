@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=23" />
+<link rel="stylesheet" href="css/styles.css?v=31" />
 </head>
 <body class="has-dark-hero">
 
@@ -711,47 +711,60 @@
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section class="section contact" id="contact">
+<section class="section section--sm contact" id="contact">
   <div class="wrap">
     <div class="contact-grid">
-      <div data-fade>
-        <span class="eyebrow">[ 05 — Start a project ]</span>
-        <h2 class="display d-md" style="margin:18px 0 20px;max-width:14ch">Talk to an engineer, <em>not a sales bot.</em></h2>
-        <p class="lead">Tell us what you're running. We'll tell you — in plain language — whether we can do it better, and exactly what it would cost.</p>
-        <ul class="props">
-          <li><span class="n">01</span><div><h4>No obligation</h4><p>An assessment, not a contract. Leave with a clear picture either way.</p></div></li>
-          <li><span class="n">02</span><div><h4>30 minutes</h4><p>One focused call. We come prepared, we keep it tight.</p></div></li>
-          <li><span class="n">03</span><div><h4>Plain language</h4><p>No acronym soup. You'll understand every recommendation we make.</p></div></li>
-        </ul>
+      <div class="contact-intro" data-fade>
+        <span class="eyebrow">[ 05 — Contact ]</span>
+        <h2 class="display d-md" style="margin-top:18px;max-width:14ch">Talk to an <span class="serif-italic">engineer.</span></h2>
+        <p class="lead" style="margin-top:16px;max-width:36ch">30 minutes. Plain language. No obligation.</p>
         <div class="contact-direct">
-          <p class="contact-direct__label">Prefer direct contact?</p>
-          <div class="contact-direct__links">
-            <a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a>
-            <a href="tel:+18584338650">858 433 8650</a>
-          </div>
+          <a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a>
+          <span class="contact-direct__sep" aria-hidden="true">·</span>
+          <a href="tel:+18584338650">858 433 8650</a>
         </div>
       </div>
 
-      <form class="form" id="contactForm" novalidate data-fade>
-        <div class="field"><input type="text" id="name" name="name" autocomplete="name" required /><label for="name">Your name</label></div>
-        <div class="field"><input type="email" id="email" name="email" autocomplete="email" required /><label for="email">Work email</label></div>
-        <div class="field"><input type="text" id="company" name="company" autocomplete="organization" required /><label for="company">Company</label></div>
-        <div class="field">
-          <select id="interest" name="interest" required>
-            <option value="" selected disabled hidden></option>
-            <option>Managed IT</option><option>AI Automations</option><option>Private Cloud</option>
-            <option>Cybersecurity</option><option>Backup &amp; DR</option><option>Network</option>
-          </select>
-          <label for="interest">What do you need?</label>
-        </div>
-        <div class="field"><textarea id="msg" name="msg" rows="3"></textarea><label for="msg">What are you running today?</label></div>
-        <label class="consent" style="display:flex;gap:.55rem;align-items:flex-start;font-size:.82rem;line-height:1.45;margin:.1rem 0 .35rem;opacity:.85;cursor:pointer">
-          <input type="checkbox" id="consent" name="consent" required style="margin-top:.2rem;flex:0 0 auto" />
-          <span>I agree to be contacted and understand my information is processed and stored in the United States.</span>
-        </label>
-        <button class="btn" type="submit"><span class="dot"></span>Send message<span class="arrow">→</span></button>
-        <p class="form__note">Response within one business day · San Diego &amp; Las Vegas · <a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a></p>
-      </form>
+      <div class="form-panel" data-fade>
+        <form class="form" id="contactForm" novalidate>
+          <div class="form__row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required placeholder="Jane Doe" />
+            </div>
+            <div class="field">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" autocomplete="organization" required placeholder="Acme Inc." />
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="jane@company.com" />
+          </div>
+          <fieldset class="chips">
+            <legend>What can we help with?</legend>
+            <div class="chips__set">
+              <label class="chip"><input type="checkbox" name="interest" value="Managed IT" /><span>Managed IT</span></label>
+              <label class="chip"><input type="checkbox" name="interest" value="AI Automations" /><span>AI Automations</span></label>
+              <label class="chip"><input type="checkbox" name="interest" value="Private Cloud" /><span>Private Cloud</span></label>
+              <label class="chip"><input type="checkbox" name="interest" value="Cybersecurity" /><span>Cybersecurity</span></label>
+              <label class="chip"><input type="checkbox" name="interest" value="Backup &amp; DR" /><span>Backup &amp; DR</span></label>
+              <label class="chip"><input type="checkbox" name="interest" value="Network" /><span>Network</span></label>
+              <label class="chip"><input type="checkbox" name="interest" value="Other" /><span>Other</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="msg">Message <span class="field__opt">— optional</span></label>
+            <textarea id="msg" name="msg" rows="3" placeholder="A few words about your environment or what you're trying to solve."></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" id="consent" name="consent" required />
+            <span>I agree to be contacted per the <a href="privacy.html">Privacy Policy</a>. Data stored in the US.</span>
+          </label>
+          <button class="btn btn--light" type="submit"><span class="dot"></span>Send message<span class="arrow">→</span></button>
+          <p class="form__assure"><span class="form__pulse" aria-hidden="true"></span>A real engineer replies — typically within one business day.</p>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -759,12 +772,12 @@
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
-  <div class="wrap">
-    <a href="#contact" class="footer__cta" style="display:block">Ready to get <em>started?</em></a>
+  <div class="footer__bg" aria-hidden="true"></div>
+  <div class="wrap footer__inner">
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="brand" href="index.html" style="color:var(--d-ink)"><span>Enteracloud</span></a>
-        <p>Managed IT and data center services from two owned facilities in San Diego and Las Vegas. Infrastructure you can trust — because we operate it ourselves.</p>
+        <p>Owned data centers in San Diego and Las Vegas. One team, end to end.</p>
       </div>
       <div>
         <h5>Services</h5>
@@ -797,13 +810,17 @@
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2026 Enteracloud — All systems operational</span>
-      <span>Owned infrastructure, not rented</span>
+      <span>© 2026 Enteracloud</span>
+      <nav class="footer__legal" aria-label="Legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </nav>
+      <span>San Diego · Las Vegas</span>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js?v=7"></script>
+<script src="js/main.js?v=9"></script>
 <script src="js/beacon.js?v=1"></script>
 <script src="js/vendor/rrweb.min.js?v=2.0.1" defer></script>
 <script src="js/replay.js?v=1" defer></script>
