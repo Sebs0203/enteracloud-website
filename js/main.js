@@ -212,7 +212,7 @@
       const msg = val('#msg');
       const payload = {
         name: val('#name'), email: val('#email'), company: val('#company'),
-        message: [interest ? ('Interest: ' + interest) : '', msg].filter(Boolean).join(' — '),
+        message: [interest ? ('Interest: ' + interest) : '', msg].filter(Boolean).join(', '),
         consent: true
       };
       btn.innerHTML = '<span class="dot"></span>Sending… <span class="arrow">→</span>';
@@ -229,7 +229,7 @@
           });
           reset(btn);
         })
-        .catch(() => { btn.innerHTML = '<span class="dot"></span>Couldn\'t send — email sales@enteracloud.com <span class="arrow">→</span>'; setTimeout(() => { btn.innerHTML = '<span class="dot"></span>Send message <span class="arrow">→</span>'; }, 4500); });
+        .catch(() => { btn.innerHTML = '<span class="dot"></span>Couldn\'t send. Email sales@enteracloud.com <span class="arrow">→</span>'; setTimeout(() => { btn.innerHTML = '<span class="dot"></span>Send message <span class="arrow">→</span>'; }, 4500); });
     });
   }
 
