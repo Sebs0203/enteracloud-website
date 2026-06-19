@@ -203,6 +203,145 @@
     });
   }
 
+  /* ---------- Footer wordmark + sandwich reveal ---------- */
+  const footerWordmark = document.querySelector('.footer__wordmark');
+  const footerInner = document.querySelector('.footer__inner');
+  const footerTrack = document.querySelector('.site-footer__track');
+  const footerBar = document.querySelector('.site-footer__track > .footer__bar');
+  const sandwichEnabled = footerTrack && footerBar && !reduce;
+
+  const getViewportHeight = () => window.visualViewport?.height ?? window.innerHeight;
+
+  const getWordmarkTargetWidth = () => {
+    const ref = footerInner || footerWordmark?.closest('.wrap');
+    if (!ref) return 0;
+    const styles = getComputedStyle(ref);
+    const contentW = ref.getBoundingClientRect().width
+      - parseFloat(styles.paddingLeft)
+      - parseFloat(styles.paddingRight);
+    const buffer = window.innerWidth <= 460 ? 14 : window.innerWidth <= 680 ? 12 : 8;
+    return Math.max(0, Math.floor(contentW) - buffer);
+  };
+
+  const fitFooterWordmark = () => {
+    if (!footerWordmark) return;
+
+    const targetW = getWordmarkTargetWidth();
+    if (targetW < 1) return;
+
+    footerWordmark.style.transform = '';
+    footerWordmark.style.display = 'inline-block';
+    footerWordmark.style.width = 'auto';
+    footerWordmark.style.maxWidth = `${targetW}px`;
+    footerWordmark.style.fontSize = '16px';
+
+    let lo = 12;
+    let hi = 600;
+    let best = lo;
+
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      footerWordmark.style.fontSize = `${mid}px`;
+      if (footerWordmark.scrollWidth <= targetW) {
+        best = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+
+    footerWordmark.style.fontSize = `${best}px`;
+    document.documentElement.style.setProperty('--footer-wordmark-size', `${best}px`);
+
+    const textW = footerWordmark.getBoundingClientRect().width;
+    if (textW > targetW) {
+      footerWordmark.style.transform = `scale(${targetW / textW})`;
+    }
+
+    const pad = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--footer-reveal-pad')) || 32;
+    const textH = footerWordmark.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--footer-reveal-h', `${Math.ceil(textH + pad * 2)}px`);
+  };
+
+  let revealRange = 0;
+  let anchorStart = 0;
+  let layoutRaf = 0;
+  let scrollRaf = 0;
+
+  const measureRevealRange = () => {
+    if (!footerTrack) return;
+    footerTrack.style.setProperty('--footer-progress', '0');
+    footerTrack.classList.remove('is-revealing');
+    revealRange = parseFloat(getComputedStyle(footerTrack).paddingBottom) || 400;
+  };
+
+  const computeAnchors = () => {
+    if (!footerBar) return;
+    measureRevealRange();
+    const barH = Math.ceil(footerBar.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--footer-bar-h', `${barH}px`);
+    const barBottom = footerBar.getBoundingClientRect().bottom + window.scrollY;
+    anchorStart = barBottom - getViewportHeight();
+  };
+
+  const updateFooterSandwich = () => {
+    scrollRaf = 0;
+    if (!sandwichEnabled) return;
+    if (!revealRange) measureRevealRange();
+
+    if (window.scrollY < anchorStart) {
+      footerTrack.style.setProperty('--footer-progress', '0');
+      footerTrack.classList.remove('is-revealing');
+      return;
+    }
+
+    footerTrack.classList.add('is-revealing');
+    const progress = Math.min(1, Math.max(0, (window.scrollY - anchorStart) / revealRange));
+    footerTrack.style.setProperty('--footer-progress', String(progress));
+  };
+
+  const scheduleFooterSandwich = () => {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(updateFooterSandwich);
+  };
+
+  const syncFooterLayout = () => {
+    layoutRaf = 0;
+    fitFooterWordmark();
+    if (sandwichEnabled) {
+      computeAnchors();
+      updateFooterSandwich();
+    }
+  };
+
+  const scheduleFooterLayout = () => {
+    if (layoutRaf) return;
+    layoutRaf = requestAnimationFrame(syncFooterLayout);
+  };
+
+  if (footerWordmark) {
+    syncFooterLayout();
+    window.addEventListener('resize', scheduleFooterLayout);
+    window.addEventListener('orientationchange', scheduleFooterLayout);
+    window.addEventListener('load', scheduleFooterLayout);
+    if (document.fonts?.ready) document.fonts.ready.then(scheduleFooterLayout);
+    window.visualViewport?.addEventListener('resize', scheduleFooterLayout);
+    window.visualViewport?.addEventListener('scroll', scheduleFooterLayout);
+
+    if (sandwichEnabled) {
+      window.addEventListener('scroll', scheduleFooterSandwich, { passive: true });
+      window.visualViewport?.addEventListener('scroll', scheduleFooterSandwich);
+    }
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(scheduleFooterLayout);
+      if (footerInner) ro.observe(footerInner);
+      const revealWrap = footerWordmark.closest('.wrap');
+      if (revealWrap) ro.observe(revealWrap);
+      if (footerBar) ro.observe(footerBar);
+    }
+  }
+
   /* ---------- Smooth anchor scroll ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
