@@ -7,11 +7,41 @@
   'use strict';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- NAV background on scroll ---------- */
+  /* ---------- NAV + hero scroll effects ---------- */
   const nav = document.getElementById('nav');
-  const onScroll = () => { nav.classList.toggle('scrolled', window.scrollY > 60); };
-  onScroll();
+  const pageCover = document.querySelector('.page-cover');
+  const hero = document.querySelector('.has-dark-hero .hero');
+  let scrollRaf = 0;
+
+  const updateScrollFx = () => {
+    scrollRaf = 0;
+    const vh = window.visualViewport?.height ?? window.innerHeight;
+
+    if (nav) {
+      if (pageCover) {
+        const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 78;
+        nav.classList.toggle('scrolled', pageCover.getBoundingClientRect().top <= navH + 1);
+      } else {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+      }
+    }
+
+    if (hero && pageCover && !reduce) {
+      const progress = Math.min(1, Math.max(0, 1 - pageCover.getBoundingClientRect().top / vh));
+      const scale = 1.045 - progress * 0.045;
+      hero.style.transform = `scale3d(${scale.toFixed(4)}, ${scale.toFixed(4)}, 1)`;
+    }
+  };
+
+  const onScroll = () => {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(updateScrollFx);
+  };
+
+  updateScrollFx();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  window.visualViewport?.addEventListener('resize', onScroll);
 
   /* ---------- Mobile menu ---------- */
   const toggle = document.getElementById('navToggle');
@@ -266,7 +296,7 @@
   let revealRange = 0;
   let anchorStart = 0;
   let layoutRaf = 0;
-  let scrollRaf = 0;
+  let footerScrollRaf = 0;
 
   const measureRevealRange = () => {
     if (!footerTrack) return;
@@ -285,7 +315,7 @@
   };
 
   const updateFooterSandwich = () => {
-    scrollRaf = 0;
+    footerScrollRaf = 0;
     if (!sandwichEnabled) return;
     if (!revealRange) measureRevealRange();
 
@@ -301,8 +331,8 @@
   };
 
   const scheduleFooterSandwich = () => {
-    if (scrollRaf) return;
-    scrollRaf = requestAnimationFrame(updateFooterSandwich);
+    if (footerScrollRaf) return;
+    footerScrollRaf = requestAnimationFrame(updateFooterSandwich);
   };
 
   const syncFooterLayout = () => {
