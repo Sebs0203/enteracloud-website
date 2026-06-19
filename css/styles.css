@@ -115,11 +115,10 @@ ul { list-style: none; }
 /* ---------- Mono micro-labels (technical accents) ---------- */
 .eyebrow, .crumb, .svc-row__num, .hero__facts .t, .dc__tier, .dc__rows dt,
 .ind .n, .quote__metric small, .form__note, .footer h5, .footer__bottom span,
-.media-card .tag, .nav-links a, .nav-mega-trigger, .spec-table td:first-child {
+.media-card .tag, .spec-table td:first-child {
   font-family: var(--font-mono);
   font-weight: 400;
 }
-.nav-links a, .nav-mega-trigger { font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; }
 
 /* =============================================================
    REVEAL — line/element mask reveals (Lesse signature)
@@ -197,7 +196,17 @@ ul { list-style: none; }
 .brand:hover .mark { transform: rotate(360deg); }
 .brand .tld { color: var(--faint); font-weight: 400; }
 .nav-links { display: flex; align-items: center; gap: 6px; }
-.nav-links a, .nav-mega-trigger { font-size: .96rem; font-weight: 500; padding: 9px 16px; position: relative; color: var(--ink-2); transition: color .2s; }
+.nav-links a, .nav-mega-trigger {
+  font-family: var(--font-display);
+  font-size: .94rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  padding: 9px 16px;
+  position: relative;
+  color: var(--ink-2);
+  transition: color .2s;
+}
 .nav-links a::after { content:""; position:absolute; left:16px; right:16px; bottom:5px; height:1.5px; background: var(--accent); transform: scaleX(0); transform-origin:right; transition: transform .4s var(--ease-expo); }
 .nav-links a:hover { color: var(--ink); }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin:left; }
@@ -218,7 +227,14 @@ ul { list-style: none; }
   color: var(--muted); white-space: nowrap; transition: color .2s;
 }
 .nav-contact a:hover { color: var(--accent); }
-.nav-cta { margin-left: 0; padding: 12px 22px; font-size: .94rem; }
+.nav-cta {
+  margin-left: 0;
+  padding: 12px 22px;
+  font-family: var(--font-display);
+  font-size: .94rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
 .nav-toggle { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); flex-direction: column; gap: 5px; align-items: center; justify-content: center; }
 .nav-toggle span { width: 17px; height: 1.5px; background: var(--ink); transition: transform .3s var(--ease-out), opacity .2s; }
 .nav-toggle.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
