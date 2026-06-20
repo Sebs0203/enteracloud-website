@@ -108,7 +108,7 @@ ul { list-style: none; }
 
 /* Kill all leftover editorial italics across headings; keep accent color */
 .statement .big em, .subhero h1 em { font-family: var(--font-display); font-style: normal; color: var(--accent); }
-.contact h2 em, .cta-band h2 em, .footer__cta em { font-family: var(--font-display); font-style: normal; color: #6fa8ff; }
+.contact h2 em, .cta-band h2 em, .svc-cta h2 em, .footer__cta em { font-family: var(--font-display); font-style: normal; color: #6fa8ff; }
 
 /* ---------- Mono micro-labels (technical accents) ---------- */
 .eyebrow, .crumb, .svc-row__num, .hero__facts .t, .dc__tier, .dc__rows dt,
@@ -808,6 +808,7 @@ ul { list-style: none; }
    ============================================================= */
 .site-footer {
   background: #0a0b10;
+  border-top: 1px solid var(--d-line);
 }
 
 .site-footer__track {
@@ -827,17 +828,6 @@ ul { list-style: none; }
   padding: clamp(56px, 7vw, 88px) 0 clamp(44px, 5vw, 64px);
   background: #0a0b10;
   border-bottom: 1px solid var(--d-line);
-}
-.footer.footer__main::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--d-line);
-  z-index: 3;
-  pointer-events: none;
 }
 
 .footer__bg {
@@ -956,9 +946,6 @@ ul { list-style: none; }
   z-index: 3;
   background: #08090d;
   padding: clamp(18px, 2.5vw, 24px) 0;
-}
-.site-footer:not(:has(.footer__main)) .footer__bar {
-  border-top: 1px solid var(--d-line);
 }
 .site-footer__track.is-revealing > .footer__bar {
   border-top: 1px solid var(--d-line);

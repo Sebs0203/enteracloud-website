@@ -1,0 +1,30 @@
+---
+description: Never use em dashes or en dashes in site copy, UI text, or titles
+alwaysApply: true
+---
+
+# No em dashes in copy or design
+
+Do not use em dashes (`—`) or en dashes (`–`) anywhere in user-facing content for this project.
+
+## Applies to
+
+- Page titles and meta descriptions
+- Headlines, eyebrows, body copy, CTAs, labels, and microcopy
+- Footer, nav, forms, legal pages, and service pages
+- Error messages and button text shown to users
+
+## Use instead
+
+- Comma: `Talk to an engineer, not a sales bot.`
+- Period: `We deploy tools. We operate them.`
+- Colon for lists: `Layered defense: EDR, firewalls, SIEM`
+- Middle dot for pairs/locations: `San Diego · Las Vegas`
+- Parentheses when needed: `Message (optional)`
+
+## Exceptions
+
+- Code comments and internal developer notes are fine to keep as-is
+- Hyphen-minus `-` in code, class names, URLs, and compound words (e.g. `24/7`, `AI-powered`) is allowed
+
+When editing existing copy, replace any remaining em/en dashes with the alternatives above.

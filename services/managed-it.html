@@ -3,22 +3,117 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
 <title>Managed IT · Enteracloud</title>
 <meta name="description" content="Full-stack managed IT from Enteracloud: 24/7 monitoring, patching, helpdesk, and proactive operations on infrastructure we own in San Diego and Las Vegas." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../css/styles.css?v=91" />
+<link rel="stylesheet" href="../css/styles.css?v=94" />
 </head>
 <body>
-
+<!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="../index.html"><span>Enteracloud<span class="tld">®</span></span></a>
+    <a class="brand" href="../index.html" aria-label="Enteracloud home">
+      <span>Enteracloud<span class="tld">®</span></span>
+    </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="../index.html#services">Services</a>
+      <a href="../index.html">Home</a>
+      <div class="nav-item nav-item--mega">
+        <button class="nav-mega-trigger" id="megaTrigger" aria-expanded="false" aria-haspopup="true" aria-controls="megaServices">Services<span class="chev" aria-hidden="true"></span></button>
+        <div class="mega" id="megaServices" role="region" aria-label="Services menu">
+          <div class="wrap mega__inner">
+            <div class="mega__aside">
+              <span class="eyebrow">Services</span>
+              <p class="mega__lead">One company.<br><span class="serif-italic">Every system.</span></p>
+              <p class="mega__note">Owned data centers, owned hardware, one team accountable end to end.</p>
+              <a class="ulink" href="../index.html#services"><span class="ulink__t">View all services</span><span class="arrow">→</span></a>
+            </div>
+            <div class="mega__grid">
+              <a class="mega__item" href="managed-it.html">
+                <span class="mega__num">01</span>
+                <span class="mega__title">Managed IT <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Monitoring, patching, and helpdesk on hardware we own.</span>
+              </a>
+              <a class="mega__item" href="ai-automations.html">
+                <span class="mega__num">02</span>
+                <span class="mega__title">AI Automations <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Custom AI agents and intelligent workflow automation.</span>
+              </a>
+              <a class="mega__item" href="private-cloud.html">
+                <span class="mega__num">03</span>
+                <span class="mega__title">Private Cloud <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Dedicated compute and storage, billed predictably.</span>
+              </a>
+              <a class="mega__item" href="cybersecurity.html">
+                <span class="mega__num">04</span>
+                <span class="mega__title">Cybersecurity <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Layered defense with a 24/7 security operations center.</span>
+              </a>
+              <a class="mega__item" href="backup-dr.html">
+                <span class="mega__num">05</span>
+                <span class="mega__title">Backup &amp; DR <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Cross-site replication with recovery we actually test.</span>
+              </a>
+              <a class="mega__item" href="network.html">
+                <span class="mega__num">06</span>
+                <span class="mega__title">Network <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Redundant fiber, multi-carrier BGP, DDoS scrubbing.</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../index.html#infrastructure">Infrastructure</a>
-      <a href="../index.html#industries">Industries</a>
+      <div class="nav-item nav-item--mega">
+        <button class="nav-mega-trigger" id="megaIndustriesTrigger" aria-expanded="false" aria-haspopup="true" aria-controls="megaIndustries">Industries<span class="chev" aria-hidden="true"></span></button>
+        <div class="mega" id="megaIndustries" role="region" aria-label="Industries menu">
+          <div class="wrap mega__inner">
+            <div class="mega__aside">
+              <span class="eyebrow">Industries</span>
+              <p class="mega__lead">Regulated.<br><span class="serif-italic">Always-on.</span></p>
+              <p class="mega__note">Owned, US-staffed infrastructure built for the sectors where uptime and compliance aren't optional.</p>
+              <a class="ulink" href="../index.html#industries"><span class="ulink__t">View all industries</span><span class="arrow">→</span></a>
+            </div>
+            <div class="mega__grid">
+              <a class="mega__item" href="../industries/healthcare.html">
+                <span class="mega__num">01</span>
+                <span class="mega__title">Healthcare <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">HIPAA-aligned hosting with audited access you can trust.</span>
+              </a>
+              <a class="mega__item" href="../industries/finance.html">
+                <span class="mega__num">02</span>
+                <span class="mega__title">Finance <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Low-latency, PCI-ready environments with full audit trails.</span>
+              </a>
+              <a class="mega__item" href="../industries/legal.html">
+                <span class="mega__num">03</span>
+                <span class="mega__title">Legal <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Chain-of-custody backups and immutable retention.</span>
+              </a>
+              <a class="mega__item" href="../industries/government.html">
+                <span class="mega__num">04</span>
+                <span class="mega__title">Government <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">US-owned, US-staffed facilities, sovereignty by design.</span>
+              </a>
+              <a class="mega__item" href="../industries/manufacturing.html">
+                <span class="mega__num">05</span>
+                <span class="mega__title">Manufacturing <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Edge-to-core resilience that keeps the line running.</span>
+              </a>
+              <a class="mega__item" href="../industries/saas-tech.html">
+                <span class="mega__num">06</span>
+                <span class="mega__title">SaaS &amp; Tech <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Dedicated capacity that scales without egress shock.</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../index.html#clients">Clients</a>
     </nav>
     <div class="nav-actions">
@@ -26,15 +121,41 @@
         <a href="tel:+18584338650" class="nav-contact__phone"><span class="nav-contact__dot" aria-hidden="true"></span>858 433 8650</a>
         <a href="mailto:sales@enteracloud.com" class="nav-contact__email">sales@enteracloud.com</a>
       </div>
-      <a class="btn nav-cta" href="../index.html#contact"><span class="dot"></span>Start a project</a>
+      <a class="btn nav-cta" href="../index.html#contact"><span class="dot"></span>Book a call</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
-<nav class="mobile-menu" id="mobileMenu">
-  <a href="../index.html#services">Services</a>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+  <a href="../index.html">Home</a>
+  <div class="m-group">
+    <button class="m-group__head" id="mServicesToggle" aria-expanded="false" aria-controls="mServicesPanel">Services<span class="m-group__chev" aria-hidden="true"></span></button>
+    <div class="m-group__panel" id="mServicesPanel">
+      <div class="m-group__list">
+        <a href="managed-it.html"><span class="m-sub__num">01</span>Managed IT</a>
+        <a href="ai-automations.html"><span class="m-sub__num">02</span>AI Automations</a>
+        <a href="private-cloud.html"><span class="m-sub__num">03</span>Private Cloud</a>
+        <a href="cybersecurity.html"><span class="m-sub__num">04</span>Cybersecurity</a>
+        <a href="backup-dr.html"><span class="m-sub__num">05</span>Backup &amp; DR</a>
+        <a href="network.html"><span class="m-sub__num">06</span>Network</a>
+      </div>
+    </div>
+  </div>
   <a href="../index.html#infrastructure">Infrastructure</a>
-  <a href="../index.html#industries">Industries</a>
+  <div class="m-group">
+    <button class="m-group__head" id="mIndustriesToggle" aria-expanded="false" aria-controls="mIndustriesPanel">Industries<span class="m-group__chev" aria-hidden="true"></span></button>
+    <div class="m-group__panel" id="mIndustriesPanel">
+      <div class="m-group__list">
+        <a href="../industries/healthcare.html"><span class="m-sub__num">01</span>Healthcare</a>
+        <a href="../industries/finance.html"><span class="m-sub__num">02</span>Finance</a>
+        <a href="../industries/legal.html"><span class="m-sub__num">03</span>Legal</a>
+        <a href="../industries/government.html"><span class="m-sub__num">04</span>Government</a>
+        <a href="../industries/manufacturing.html"><span class="m-sub__num">05</span>Manufacturing</a>
+        <a href="../industries/saas-tech.html"><span class="m-sub__num">06</span>SaaS &amp; Tech</a>
+      </div>
+    </div>
+  </div>
   <a href="../index.html#clients">Clients</a>
   <a href="../index.html#contact">Start a project</a>
   <div class="m-contact">
@@ -81,42 +202,104 @@
 </section>
 
 <section class="section section--sm">
-  <div class="wrap"><div class="cta-band" data-fade>
-    <h2>Let us take operations <em>off your plate.</em></h2>
-    <p class="lead">30 minutes. No obligation. Plain language.</p>
-    <a class="btn btn--light" href="../index.html#contact"><span class="dot"></span>Start a project<span class="arrow">→</span></a>
-  </div></div>
+  <div class="wrap">
+    <div class="svc-cta" data-fade>
+      <span class="svc-cta__bg" aria-hidden="true"></span>
+      <div class="svc-cta__inner">
+        <span class="eyebrow">Let's talk</span>
+        <h2 class="svc-cta__title">
+          <span class="svc-cta__title-line">Let us take operations</span>
+          <span class="svc-cta__title-line"><span class="serif-italic">off your plate.</span></span>
+        </h2>
+        <p class="lead">Talk to an engineer, not a sales bot.</p>
+        <div class="svc-cta__actions">
+          <a class="btn btn--light" href="../index.html#contact"><span class="dot"></span>Book a call<span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 </main>
-
+<!-- ============ FOOTER ============ -->
 <footer class="site-footer">
-  <div class="footer__bar">
-    <div class="wrap">
-      <div class="footer__bottom">
-        <span>© 2026 Enteracloud</span>
-        <nav class="footer__legal" aria-label="Legal">
-          <a href="../privacy.html">Privacy Policy</a>
-          <a href="../terms.html">Terms of Use</a>
-        </nav>
-<nav class="footer__social" aria-label="Social media">
-          <a class="footer__social-link" href="https://www.instagram.com/enteracloud" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm11.5 1.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
-          </a>
-          <a class="footer__social-link" href="https://www.facebook.com/enteracloud" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M14.5 20.5V14h2.1l.3-2.7H14.5V9.8c0-.8.2-1.3 1.4-1.3h1.5V5.6c-.3 0-1.1-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v3.2H9.2v2.7h2.3v6.5h3z"/></svg>
-          </a>
-          <a class="footer__social-link" href="https://www.linkedin.com/company/enteracloud" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.94 8.5H4V19h2.94V8.5zM5.44 4C4.64 4 4 4.64 4 5.44S4.64 6.88 5.44 6.88 6.88 6.24 6.88 5.44 6.24 4 5.44 4zM20 19h-2.94v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V19H10.5V8.5h2.82v1.43h.04c.39-.74 1.35-1.52 2.78-1.52 2.97 0 3.52 1.95 3.52 4.49V19z"/></svg>
-          </a>
-          <a class="footer__social-link" href="https://www.youtube.com/@enteracloud" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.13 5 12 5 12 5s-6.13 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.87 19 12 19 12 19s6.13 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
-          </a>
+  <div class="site-footer__track">
+    <div class="footer footer__main">
+      <div class="footer__bg" aria-hidden="true"></div>
+      <div class="wrap footer__inner">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <a class="brand" href="../index.html"><span>Enteracloud</span></a>
+            <p>Owned data centers in San Diego and Las Vegas. One team, end to end.</p>
+            <nav class="footer__social" aria-label="Social media">
+              <a class="footer__social-link" href="https://www.instagram.com/enteracloud" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm11.5 1.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+              </a>
+              <a class="footer__social-link" href="https://www.facebook.com/enteracloud" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M14.5 20.5V14h2.1l.3-2.7H14.5V9.8c0-.8.2-1.3 1.4-1.3h1.5V5.6c-.3 0-1.1-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v3.2H9.2v2.7h2.3v6.5h3z"/></svg>
+              </a>
+              <a class="footer__social-link" href="https://www.linkedin.com/company/enteracloud" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.94 8.5H4V19h2.94V8.5zM5.44 4C4.64 4 4 4.64 4 5.44S4.64 6.88 5.44 6.88 6.88 6.24 6.88 5.44 6.24 4 5.44 4zM20 19h-2.94v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V19H10.5V8.5h2.82v1.43h.04c.39-.74 1.35-1.52 2.78-1.52 2.97 0 3.52 1.95 3.52 4.49V19z"/></svg>
+              </a>
+              <a class="footer__social-link" href="https://www.youtube.com/@enteracloud" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.13 5 12 5 12 5s-6.13 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.87 19 12 19 12 19s6.13 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+              </a>
             </nav>
-        <span><a href="../index.html" style="color:#6fa8ff">← Back to home</a></span>
+          </div>
+          <div>
+            <h5>Services</h5>
+            <ul>
+              <li><a href="managed-it.html">Managed IT</a></li>
+              <li><a href="ai-automations.html">AI Automations</a></li>
+              <li><a href="private-cloud.html">Private Cloud</a></li>
+              <li><a href="cybersecurity.html">Cybersecurity</a></li>
+              <li><a href="backup-dr.html">Backup &amp; DR</a></li>
+              <li><a href="network.html">Network</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Company</h5>
+            <ul>
+              <li><a href="../index.html#infrastructure">Infrastructure</a></li>
+              <li><a href="../index.html#industries">Industries</a></li>
+              <li><a href="../index.html#clients">Clients</a></li>
+              <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Contact</h5>
+            <ul>
+              <li><a href="mailto:sales@enteracloud.com">sales@enteracloud.com</a></li>
+              <li><a href="tel:+18584338650">858 433 8650</a></li>
+              <li><a href="../index.html#infrastructure">San Diego, CA · DC1</a></li>
+              <li><a href="../index.html#infrastructure">Las Vegas, NV · DC2</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__reveal" aria-hidden="true">
+      <div class="footer__reveal-inner">
+        <div class="footer__reveal-bg" aria-hidden="true"></div>
+        <div class="wrap">
+          <p class="footer__wordmark">Enteracloud</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <div class="wrap">
+        <div class="footer__bottom">
+          <span>© 2026 Enteracloud</span>
+          <nav class="footer__legal" aria-label="Legal">
+            <a href="../privacy.html">Privacy Policy</a>
+            <a href="../terms.html">Terms of Use</a>
+          </nav>
+          <span>San Diego · Las Vegas</span>
+        </div>
       </div>
     </div>
   </div>
 </footer>
-<script src="../js/main.js?v=9"></script>
+
+<script src="../js/main.js?v=36"></script>
 </body>
 </html>
