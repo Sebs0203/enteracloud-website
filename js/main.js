@@ -107,6 +107,70 @@
     });
   }
 
+  /* ---------- Scroll-driven statement reveal ---------- */
+  const scrollTypeEl = document.querySelector('[data-scroll-type]');
+  if (scrollTypeEl) {
+    const line = scrollTypeEl.querySelector('.statement-type__line');
+    const source = scrollTypeEl.querySelector('.statement-type__source');
+    const charEls = [];
+
+    const buildChars = () => {
+      if (!line || !source) return;
+      const walk = (node, inEm) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          for (const c of node.textContent) {
+            const span = document.createElement('span');
+            span.className = 'statement-type__char' + (inEm ? ' is-em' : '');
+            span.textContent = c;
+            line.appendChild(span);
+            charEls.push(span);
+          }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const em = inEm || node.tagName === 'EM';
+          node.childNodes.forEach(n => walk(n, em));
+        }
+      };
+      source.childNodes.forEach(n => walk(n, false));
+    };
+
+    buildChars();
+
+    const easeOutQuad = t => 1 - (1 - t) * (1 - t);
+
+    const updateScrollType = () => {
+      if (!charEls.length) return;
+      const vh = window.visualViewport?.height ?? window.innerHeight;
+      const rect = scrollTypeEl.getBoundingClientRect();
+      const start = vh * 0.76;
+      const end = vh * 0.08;
+      const raw = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
+      const progress = easeOutQuad(raw);
+      const revealAt = progress * (charEls.length + 12);
+
+      charEls.forEach((el, i) => {
+        el.classList.toggle('is-revealed', revealAt > i + 2);
+      });
+    };
+
+    if (reduce || !charEls.length) {
+      charEls.forEach(el => el.classList.add('is-revealed'));
+    } else {
+      let typeRaf = 0;
+      const scheduleScrollType = () => {
+        if (typeRaf) return;
+        typeRaf = requestAnimationFrame(() => {
+          typeRaf = 0;
+          updateScrollType();
+        });
+      };
+      updateScrollType();
+      window.addEventListener('scroll', scheduleScrollType, { passive: true });
+      window.addEventListener('resize', scheduleScrollType);
+      window.visualViewport?.addEventListener('resize', scheduleScrollType);
+      window.visualViewport?.addEventListener('scroll', scheduleScrollType);
+    }
+  }
+
   /* ---------- Scroll reveals (mask + fade + stagger) ---------- */
   const revealEls = document.querySelectorAll('.reveal-mask, [data-fade], [data-stagger]');
   if ('IntersectionObserver' in window && !reduce) {
@@ -126,26 +190,51 @@
   /* ---------- Count-up stats ---------- */
   const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
   const animateCount = (el) => {
+    if (el.dataset.counted === 'true') return;
+    el.dataset.counted = 'true';
     const target = parseFloat(el.getAttribute('data-count'));
     const suffix = el.getAttribute('data-suffix') || '';
     if (reduce) { el.textContent = target.toLocaleString() + suffix; return; }
-    const dur = 1600; let start = null;
+    const dur = parseFloat(el.getAttribute('data-count-duration')) || 1600;
+    let start = null;
     const tick = (ts) => {
       if (start === null) start = ts;
       const p = Math.min((ts - start) / dur, 1);
-      el.textContent = Math.floor(easeOutCubic(p) * target).toLocaleString() + (p >= 1 ? suffix : '');
+      const value = Math.floor(easeOutCubic(p) * target);
+      el.textContent = value.toLocaleString() + (p >= 1 ? suffix : '');
       if (p < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
   };
   const stats = document.getElementById('stats');
   if (stats) {
-    if ('IntersectionObserver' in window) {
+    const startStatsCount = () => stats.querySelectorAll('[data-count]').forEach(animateCount);
+    const triggerWhenVisible = () => {
+      if (stats.classList.contains('is-in')) {
+        startStatsCount();
+        return true;
+      }
+      return false;
+    };
+    if (triggerWhenVisible()) {
+      /* already revealed (e.g. reduced motion) */
+    } else if ('MutationObserver' in window && !reduce) {
+      const mo = new MutationObserver(() => {
+        if (triggerWhenVisible()) mo.disconnect();
+      });
+      mo.observe(stats, { attributes: true, attributeFilter: ['class'] });
+    } else if ('IntersectionObserver' in window) {
       const so = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.querySelectorAll('[data-count]').forEach(animateCount); obs.unobserve(e.target); } });
-      }, { threshold: 0.5 });
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          startStatsCount();
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
       so.observe(stats);
-    } else { stats.querySelectorAll('[data-count]').forEach(animateCount); }
+    } else {
+      startStatsCount();
+    }
   }
 
   /* ---------- Services accordion ---------- */
