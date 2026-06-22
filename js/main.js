@@ -6,6 +6,8 @@
 (function () {
   'use strict';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const FOOTER_SANDWICH = false;
+  if (!FOOTER_SANDWICH) document.documentElement.classList.add('footer-sandwich-off');
 
   /* ---------- NAV + hero scroll effects ---------- */
   const nav = document.getElementById('nav');
@@ -327,7 +329,7 @@
   const footerInner = document.querySelector('.footer__inner');
   const footerTrack = document.querySelector('.site-footer__track');
   const footerBar = document.querySelector('.site-footer__track > .footer__bar');
-  const sandwichEnabled = footerTrack && footerBar && !reduce;
+  const sandwichEnabled = FOOTER_SANDWICH && footerTrack && footerBar && !reduce;
 
   const getViewportHeight = () => window.visualViewport?.height ?? window.innerHeight;
 
@@ -438,7 +440,7 @@
     layoutRaf = requestAnimationFrame(syncFooterLayout);
   };
 
-  if (footerWordmark) {
+  if (FOOTER_SANDWICH && footerWordmark) {
     syncFooterLayout();
     window.addEventListener('resize', scheduleFooterLayout);
     window.addEventListener('orientationchange', scheduleFooterLayout);

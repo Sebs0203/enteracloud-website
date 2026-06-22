@@ -970,6 +970,22 @@ ul { list-style: none; }
   transform: translateZ(0);
   backface-visibility: hidden;
 }
+
+/* Sandwich off — static footer (no reveal zone / sticky bar) */
+html.footer-sandwich-off .site-footer__track {
+  padding-bottom: 0;
+}
+html.footer-sandwich-off .footer__reveal {
+  display: none;
+}
+html.footer-sandwich-off .site-footer__track.is-revealing > .footer__bar,
+html.footer-sandwich-off .site-footer__track > .footer__bar {
+  position: relative;
+  bottom: auto;
+  min-height: 0;
+  transform: none;
+  backface-visibility: visible;
+}
 .footer__bottom {
   display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
   margin: 0;
