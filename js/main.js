@@ -13,6 +13,7 @@
   const nav = document.getElementById('nav');
   const pageCover = document.querySelector('.page-cover');
   const hero = document.querySelector('.has-dark-hero .hero');
+  const mobileNavMq = window.matchMedia('(max-width: 900px)');
   let scrollRaf = 0;
 
   const updateScrollFx = () => {
@@ -21,17 +22,19 @@
 
     if (nav) {
       if (pageCover) {
-        const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 78;
+        const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-total-h')) || 78;
         nav.classList.toggle('scrolled', pageCover.getBoundingClientRect().top <= navH + 1);
       } else {
         nav.classList.toggle('scrolled', window.scrollY > 60);
       }
     }
 
-    if (hero && pageCover && !reduce) {
+    if (hero && pageCover && !reduce && !mobileNavMq.matches) {
       const progress = Math.min(1, Math.max(0, 1 - pageCover.getBoundingClientRect().top / vh));
       const scale = 1.045 - progress * 0.045;
       hero.style.transform = `scale3d(${scale.toFixed(4)}, ${scale.toFixed(4)}, 1)`;
+    } else if (hero) {
+      hero.style.transform = '';
     }
   };
 
@@ -48,16 +51,33 @@
   /* ---------- Mobile menu ---------- */
   const toggle = document.getElementById('navToggle');
   const menu = document.getElementById('mobileMenu');
+  let menuScrollY = 0;
+  const closeMobileMenu = () => {
+    if (!menu || !toggle) return;
+    menu.classList.remove('open');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+    document.body.style.top = '';
+    if (menuScrollY) {
+      window.scrollTo(0, menuScrollY);
+      menuScrollY = 0;
+    }
+  };
+  const openMobileMenu = () => {
+    if (!menu || !toggle) return;
+    menuScrollY = window.scrollY;
+    menu.classList.add('open');
+    toggle.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+    document.body.style.top = `-${menuScrollY}px`;
+  };
   if (toggle && menu) {
     toggle.addEventListener('click', () => {
-      const open = menu.classList.toggle('open');
-      toggle.classList.toggle('is-open', open);
-      toggle.setAttribute('aria-expanded', String(open));
-      document.body.style.overflow = open ? 'hidden' : '';
+      menu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
     });
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      menu.classList.remove('open'); toggle.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
-    }));
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
     // expandable groups (Services, Industries) inside the mobile menu
     menu.querySelectorAll('.m-group__head').forEach(head => {
       const group = head.closest('.m-group');
@@ -68,10 +88,53 @@
     });
   }
 
+  const closeAllMega = () => {
+    document.querySelectorAll('.nav-item--mega').forEach(m => {
+      m.classList.remove('open');
+      const trigger = m.querySelector('.nav-mega-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+    if (nav) nav.classList.remove('mega-open');
+  };
+
+  /* ---------- Hero videos (load only the clip for current viewport) ---------- */
+  const desktopHeroVideo = document.querySelector('.hero__video--desktop');
+  const mobileHeroVideo = document.querySelector('.hero__video--mobile');
+  const loadHeroVideo = (video, active) => {
+    if (!video) return;
+    if (!active) {
+      video.pause();
+      if (video.getAttribute('src')) {
+        video.removeAttribute('src');
+        video.load();
+      }
+      return;
+    }
+    const src = video.dataset.src;
+    if (!src) return;
+    if (video.getAttribute('src') !== src) {
+      video.src = src;
+      video.load();
+    }
+    video.play().catch(() => {});
+  };
+  const syncHeroVideos = () => {
+    const isMobile = mobileNavMq.matches;
+    loadHeroVideo(desktopHeroVideo, !isMobile);
+    loadHeroVideo(mobileHeroVideo, isMobile);
+  };
+  syncHeroVideos();
+
+  mobileNavMq.addEventListener('change', () => {
+    closeAllMega();
+    if (!mobileNavMq.matches) closeMobileMenu();
+    syncHeroVideos();
+    updateScrollFx();
+  });
+
   /* ---------- Mega menus (Services, Industries) ---------- */
   const megaItems = Array.from(document.querySelectorAll('.nav-item--mega'));
   if (megaItems.length) {
-    const nav = document.getElementById('nav');
     const syncNav = () => {
       const anyOpen = megaItems.some(m => m.classList.contains('open'));
       if (nav) nav.classList.toggle('mega-open', anyOpen);
@@ -80,6 +143,7 @@
       const trigger = megaItem.querySelector('.nav-mega-trigger');
       let closeTimer;
       const openMega = () => {
+        if (mobileNavMq.matches) return;
         clearTimeout(closeTimer);
         megaItems.forEach(m => { if (m !== megaItem) { m.classList.remove('open'); m.querySelector('.nav-mega-trigger').setAttribute('aria-expanded', 'false'); } });
         megaItem.classList.add('open');
@@ -96,6 +160,7 @@
       megaItem.addEventListener('mouseleave', closeSoon);
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
+        if (mobileNavMq.matches) return;
         megaItem.classList.contains('open') ? closeMega() : openMega();
       });
       trigger.addEventListener('focus', openMega);
@@ -105,7 +170,15 @@
       megaItem.querySelectorAll('.mega a').forEach(a => a.addEventListener('click', closeMega));
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') megaItems.forEach(m => { m.classList.remove('open'); m.querySelector('.nav-mega-trigger').setAttribute('aria-expanded', 'false'); syncNav(); });
+      if (e.key === 'Escape') {
+        closeAllMega();
+        syncNav();
+        closeMobileMenu();
+      }
+    });
+  } else {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
     });
   }
 
@@ -263,7 +336,7 @@
   if (px.length && !reduce) {
     let ticking = false;
     const update = () => {
-      const vh = window.innerHeight;
+      const vh = window.visualViewport?.height ?? window.innerHeight;
       px.forEach(el => {
         const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
         const r = el.getBoundingClientRect();
@@ -279,8 +352,9 @@
   }
 
   /* ---------- Hero video graceful fallback ---------- */
-  const video = document.getElementById('heroVideo');
-  if (video) video.addEventListener('error', () => { video.style.display = 'none'; });
+  document.querySelectorAll('.hero__video').forEach(video => {
+    video.addEventListener('error', () => { video.style.display = 'none'; });
+  });
 
   /* ---------- Floating labels ---------- */
   document.querySelectorAll('.field input, .field textarea, .field select').forEach(input => {
@@ -498,7 +572,8 @@
       const el = document.querySelector(id);
       if (!el) return;
       e.preventDefault();
-      const y = el.getBoundingClientRect().top + window.scrollY - 70;
+      const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-total-h')) || 78;
+      const y = el.getBoundingClientRect().top + window.scrollY - navH - 8;
       window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
     });
   });

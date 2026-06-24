@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=120" />
+<link rel="stylesheet" href="css/styles.css?v=133" />
 </head>
 <body class="has-dark-hero">
 
@@ -172,14 +172,8 @@
   <div class="hero__media">
     <div class="fallback" aria-hidden="true"></div>
     <img class="hero__bg" src="assets/hero-datacenter.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
-    <div class="hero__vimeo" aria-hidden="true">
-      <iframe
-        src="https://player.vimeo.com/video/1204276570?h=bd7601cb7a&background=1&autoplay=1&loop=1&muted=1&autopause=0&playsinline=1&controls=0&title=0&byline=0&portrait=0"
-        title=""
-        allow="autoplay; fullscreen; picture-in-picture"
-        referrerpolicy="strict-origin-when-cross-origin"
-      ></iframe>
-    </div>
+    <video class="hero__video hero__video--desktop" autoplay muted loop playsinline disablePictureInPicture aria-hidden="true" poster="assets/hero-datacenter.png" preload="none" data-src="assets/desktop-bg.mp4"></video>
+    <video class="hero__video hero__video--mobile" autoplay muted loop playsinline disablePictureInPicture aria-hidden="true" poster="assets/hero-datacenter.png" preload="none" data-src="assets/mobile-bg.mp4"></video>
   </div>
   <div class="hero__scrim"></div>
 
@@ -865,7 +859,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=42"></script>
+<script src="js/main.js?v=48"></script>
 <script src="js/beacon.js?v=1"></script>
 <script src="js/vendor/rrweb.min.js?v=2.0.1" defer></script>
 <script src="js/replay.js?v=1" defer></script>
