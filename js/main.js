@@ -209,6 +209,17 @@
     requestAnimationFrame(tick);
   };
   const stats = document.getElementById('stats');
+  const observeStatsCount = () => {
+    if (!stats || !('IntersectionObserver' in window)) return;
+    const so = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        stats.querySelectorAll('[data-count]').forEach(animateCount);
+        obs.unobserve(e.target);
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    so.observe(stats);
+  };
   if (stats) {
     const startStatsCount = () => stats.querySelectorAll('[data-count]').forEach(animateCount);
     const triggerWhenVisible = () => {
@@ -226,14 +237,7 @@
       });
       mo.observe(stats, { attributes: true, attributeFilter: ['class'] });
     } else if ('IntersectionObserver' in window) {
-      const so = new IntersectionObserver((entries, obs) => {
-        entries.forEach(e => {
-          if (!e.isIntersecting) return;
-          startStatsCount();
-          obs.unobserve(e.target);
-        });
-      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
-      so.observe(stats);
+      observeStatsCount();
     } else {
       startStatsCount();
     }
@@ -464,10 +468,33 @@
   }
 
   /* ---------- Smooth anchor scroll ---------- */
+  const scrollHomeToTop = () => {
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    if (hero) hero.style.transform = '';
+    if (nav) nav.classList.remove('scrolled');
+    document.querySelectorAll('.statement-type__char').forEach(c => c.classList.remove('is-revealed'));
+    if (stats) {
+      stats.querySelectorAll('[data-count]').forEach(el => {
+        delete el.dataset.counted;
+        el.textContent = '0';
+      });
+      observeStatsCount();
+    }
+    requestAnimationFrame(updateScrollFx);
+  };
+
+  document.querySelectorAll('a[href="#top"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      if (!document.body.classList.contains('has-dark-hero')) return;
+      e.preventDefault();
+      scrollHomeToTop();
+    });
+  });
+
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href');
-      if (id.length < 2) return;
+      if (id.length < 2 || id === '#top') return;
       const el = document.querySelector(id);
       if (!el) return;
       e.preventDefault();

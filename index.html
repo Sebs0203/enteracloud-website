@@ -12,14 +12,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=104" />
+<link rel="stylesheet" href="css/styles.css?v=119" />
 </head>
 <body class="has-dark-hero">
 
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="index.html" aria-label="Enteracloud home">
+    <a class="brand" href="#top" aria-label="Enteracloud home">
       <span>Enteracloud</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -81,20 +81,20 @@
               <a class="ulink" href="#industries"><span class="ulink__t">View all industries</span><span class="arrow">→</span></a>
             </div>
             <div class="mega__grid">
-              <a class="mega__item" href="industries/healthcare.html">
+              <a class="mega__item" href="industries/legal.html">
                 <span class="mega__num">01</span>
+                <span class="mega__title">Legal <span class="arrow" aria-hidden="true">→</span></span>
+                <span class="mega__desc">Chain-of-custody backups and immutable retention.</span>
+              </a>
+              <a class="mega__item" href="industries/healthcare.html">
+                <span class="mega__num">02</span>
                 <span class="mega__title">Healthcare <span class="arrow" aria-hidden="true">→</span></span>
                 <span class="mega__desc">HIPAA-aligned hosting with audited access you can trust.</span>
               </a>
               <a class="mega__item" href="industries/finance.html">
-                <span class="mega__num">02</span>
+                <span class="mega__num">03</span>
                 <span class="mega__title">Finance <span class="arrow" aria-hidden="true">→</span></span>
                 <span class="mega__desc">Low-latency, PCI-ready environments with full audit trails.</span>
-              </a>
-              <a class="mega__item" href="industries/legal.html">
-                <span class="mega__num">03</span>
-                <span class="mega__title">Legal <span class="arrow" aria-hidden="true">→</span></span>
-                <span class="mega__desc">Chain-of-custody backups and immutable retention.</span>
               </a>
               <a class="mega__item" href="industries/government.html">
                 <span class="mega__num">04</span>
@@ -148,9 +148,9 @@
     <button class="m-group__head" id="mIndustriesToggle" aria-expanded="false" aria-controls="mIndustriesPanel">Industries<span class="m-group__chev" aria-hidden="true"></span></button>
     <div class="m-group__panel" id="mIndustriesPanel">
       <div class="m-group__list">
-        <a href="industries/healthcare.html"><span class="m-sub__num">01</span>Healthcare</a>
-        <a href="industries/finance.html"><span class="m-sub__num">02</span>Finance</a>
-        <a href="industries/legal.html"><span class="m-sub__num">03</span>Legal</a>
+        <a href="industries/legal.html"><span class="m-sub__num">01</span>Legal</a>
+        <a href="industries/healthcare.html"><span class="m-sub__num">02</span>Healthcare</a>
+        <a href="industries/finance.html"><span class="m-sub__num">03</span>Finance</a>
         <a href="industries/government.html"><span class="m-sub__num">04</span>Government</a>
         <a href="industries/manufacturing.html"><span class="m-sub__num">05</span>Manufacturing</a>
         <a href="industries/saas-tech.html"><span class="m-sub__num">06</span>SaaS &amp; Tech</a>
@@ -184,21 +184,23 @@
   <div class="hero__scrim"></div>
 
   <div class="wrap hero__inner">
-    <div class="hero__top">
-      <span class="eyebrow">Managed IT &amp; Data Centers</span>
-      <span class="hero__loc">San Diego · Las Vegas</span>
-    </div>
+    <div class="hero__stack">
+      <div class="hero__row hero__row--meta">
+        <span class="eyebrow hero__eyebrow">Managed IT &amp; Data Centers</span>
+        <span class="hero__loc">San Diego · Las Vegas</span>
+      </div>
 
-    <h1 class="hero__title">
-      <span class="reveal-mask"><span>Enterprise IT,</span></span>
-      <span class="reveal-mask"><span>handled<span class="caret" aria-hidden="true"></span></span></span>
-    </h1>
+      <h1 class="hero__title">
+        <span class="reveal-mask"><span>Enterprise IT,</span></span>
+        <span class="reveal-mask"><span>handled<span class="caret" aria-hidden="true"></span></span></span>
+      </h1>
 
-    <div class="hero__sub">
-      <p class="lead">We design, run, and own the infrastructure behind your business two data centers, 3,000+ servers, one team accountable end to end.</p>
-      <div class="hero__cta">
-        <a class="btn btn--light" href="#contact"><span class="dot"></span>Book a call<span class="arrow">→</span></a>
-        <a class="btn btn--ghost" href="#services" style="color:#EFECE6;border-color:rgba(239,236,230,.3)"><span>Our services</span></a>
+      <div class="hero__row hero__row--foot">
+        <p class="lead hero__lead">We design, run, and own the infrastructure behind your business two data centers, 500+ servers, one team accountable end to end.</p>
+        <div class="hero__cta">
+          <a class="btn btn--light" href="#contact"><span class="dot"></span>Book a call<span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="#services" style="color:#EFECE6;border-color:rgba(239,236,230,.3)"><span>Our services</span></a>
+        </div>
       </div>
     </div>
   </div>
@@ -666,9 +668,9 @@
       <h2 class="display d-md" style="margin-top:18px;max-width:18ch">Built for regulated, <span class="serif-italic">always-on</span> work.</h2>
     </div>
     <div class="ind-grid" data-stagger>
+      <div class="ind"><span class="n">/ Legal</span><h3>Legal</h3><p>Chain-of-custody backups and immutable retention for discovery you can defend in court.</p></div>
       <div class="ind"><span class="n">/ Healthcare</span><h3>Healthcare</h3><p>HIPAA-aligned hosting with audited access. Patient data that never leaves jurisdictions you trust.</p></div>
       <div class="ind"><span class="n">/ Finance</span><h3>Finance</h3><p>Low-latency, PCI-ready environments where a millisecond and an audit trail both matter.</p></div>
-      <div class="ind"><span class="n">/ Legal</span><h3>Legal</h3><p>Chain-of-custody backups and immutable retention for discovery you can defend in court.</p></div>
       <div class="ind"><span class="n">/ Government</span><h3>Government</h3><p>US-owned, US-staffed facilities. Sovereignty isn't a checkbox, it's the building.</p></div>
       <div class="ind"><span class="n">/ Manufacturing</span><h3>Manufacturing</h3><p>Edge-to-core resilience that keeps the line running when the cloud has a bad day.</p></div>
       <div class="ind"><span class="n">/ SaaS &amp; Tech</span><h3>SaaS &amp; Tech</h3><p>Dedicated capacity that scales without the egress bill shock of the hyperscalers.</p></div>
@@ -863,7 +865,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=41"></script>
+<script src="js/main.js?v=42"></script>
 <script src="js/beacon.js?v=1"></script>
 <script src="js/vendor/rrweb.min.js?v=2.0.1" defer></script>
 <script src="js/replay.js?v=1" defer></script>
