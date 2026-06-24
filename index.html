@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=99" />
+<link rel="stylesheet" href="css/styles.css?v=104" />
 </head>
 <body class="has-dark-hero">
 
@@ -171,9 +171,15 @@
 <section class="hero" id="top">
   <div class="hero__media">
     <div class="fallback" aria-hidden="true"></div>
-    <video autoplay muted loop playsinline id="heroVideo">
-      <source src="assets/hero2.mp4" type="video/mp4" />
-    </video>
+    <img class="hero__bg" src="assets/hero-datacenter.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
+    <div class="hero__vimeo" aria-hidden="true">
+      <iframe
+        src="https://player.vimeo.com/video/1204276570?h=bd7601cb7a&background=1&autoplay=1&loop=1&muted=1&autopause=0&playsinline=1&controls=0&title=0&byline=0&portrait=0"
+        title=""
+        allow="autoplay; fullscreen; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
   </div>
   <div class="hero__scrim"></div>
 
