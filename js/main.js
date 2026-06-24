@@ -92,18 +92,37 @@
       if (head) head.setAttribute('aria-expanded', 'false');
     });
   };
-  const closeMobileMenu = (scrollToY) => {
-    if (!menu || !toggle || !menu.classList.contains('open')) return;
+  const MENU_CLOSE_MS = 520;
+  let menuCloseTimer = 0;
+  const finishMobileMenuClose = (y) => {
+    if (!menu) return;
+    menu.classList.remove('is-closing');
+    unlockPageScroll(y);
+    menuScrollY = 0;
+  };
+  const closeMobileMenu = (scrollToY, instant) => {
+    if (!menu || !toggle) return;
+    if (menu.classList.contains('is-closing')) return;
+    if (!menu.classList.contains('open')) return;
     const y = scrollToY !== undefined ? scrollToY : menuScrollY;
+    clearTimeout(menuCloseTimer);
     menu.classList.remove('open');
     toggle.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
     resetMobileMenuPanels();
-    unlockPageScroll(y);
-    menuScrollY = 0;
+    if (instant || reduce) {
+      menu.classList.remove('is-closing');
+      unlockPageScroll(y);
+      menuScrollY = 0;
+      return;
+    }
+    menu.classList.add('is-closing');
+    menuCloseTimer = window.setTimeout(() => finishMobileMenuClose(y), MENU_CLOSE_MS);
   };
   const openMobileMenu = () => {
     if (!menu || !toggle) return;
+    clearTimeout(menuCloseTimer);
+    menu.classList.remove('is-closing');
     lockPageScroll();
     menu.classList.add('open');
     toggle.classList.add('is-open');
@@ -189,7 +208,7 @@
 
   mobileNavMq.addEventListener('change', () => {
     closeAllMega();
-    if (!mobileNavMq.matches) closeMobileMenu();
+    if (!mobileNavMq.matches) closeMobileMenu(undefined, true);
     syncHeroVideos();
     updateScrollFx();
   });
