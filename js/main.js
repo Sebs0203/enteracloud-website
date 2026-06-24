@@ -15,6 +15,7 @@
   const hero = document.querySelector('.has-dark-hero .hero');
   const mobileNavMq = window.matchMedia('(max-width: 900px)');
   let scrollRaf = 0;
+  let menuScrollLockActive = false;
 
   const updateScrollFx = () => {
     scrollRaf = 0;
@@ -39,6 +40,7 @@
   };
 
   const onScroll = () => {
+    if (menuScrollLockActive) return;
     if (scrollRaf) return;
     scrollRaf = requestAnimationFrame(updateScrollFx);
   };
@@ -52,38 +54,98 @@
   const toggle = document.getElementById('navToggle');
   const menu = document.getElementById('mobileMenu');
   let menuScrollY = 0;
-  const closeMobileMenu = () => {
-    if (!menu || !toggle) return;
+  const getPageScrollY = () => window.pageYOffset || document.documentElement.scrollTop || 0;
+  const setPageScrollInstant = (y) => {
+    const html = document.documentElement;
+    const prev = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    html.scrollTop = y;
+    document.body.scrollTop = y;
+    html.style.scrollBehavior = prev;
+  };
+  const lockPageScroll = () => {
+    menuScrollY = getPageScrollY();
+    menuScrollLockActive = true;
+    document.body.style.top = `-${menuScrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.classList.add('menu-open');
+  };
+  const unlockPageScroll = (y) => {
+    document.body.classList.remove('menu-open');
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    setPageScrollInstant(y);
+    menuScrollLockActive = false;
+    requestAnimationFrame(updateScrollFx);
+  };
+  const resetMobileMenuPanels = () => {
+    if (!menu) return;
+    menu.scrollTop = 0;
+    menu.querySelectorAll('.m-group').forEach(group => {
+      group.classList.remove('open');
+      const head = group.querySelector('.m-group__head');
+      if (head) head.setAttribute('aria-expanded', 'false');
+    });
+  };
+  const closeMobileMenu = (scrollToY) => {
+    if (!menu || !toggle || !menu.classList.contains('open')) return;
+    const y = scrollToY !== undefined ? scrollToY : menuScrollY;
     menu.classList.remove('open');
     toggle.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('menu-open');
-    document.body.style.top = '';
-    if (menuScrollY) {
-      window.scrollTo(0, menuScrollY);
-      menuScrollY = 0;
-    }
+    resetMobileMenuPanels();
+    unlockPageScroll(y);
+    menuScrollY = 0;
   };
   const openMobileMenu = () => {
     if (!menu || !toggle) return;
-    menuScrollY = window.scrollY;
+    lockPageScroll();
     menu.classList.add('open');
     toggle.classList.add('is-open');
     toggle.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('menu-open');
-    document.body.style.top = `-${menuScrollY}px`;
   };
   if (toggle && menu) {
     toggle.addEventListener('click', () => {
       menu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
     });
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href') || '';
+        if (href.startsWith('#') && href.length > 1) {
+          const el = document.querySelector(href);
+          if (el) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-total-h')) || 78;
+            const targetY = Math.max(0, el.getBoundingClientRect().top + menuScrollY - navH - 8);
+            closeMobileMenu(targetY);
+            return;
+          }
+        }
+        if (href === '#top') {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          closeMobileMenu(0);
+          return;
+        }
+        closeMobileMenu();
+      });
+    });
     // expandable groups (Services, Industries) inside the mobile menu
     menu.querySelectorAll('.m-group__head').forEach(head => {
       const group = head.closest('.m-group');
       head.addEventListener('click', () => {
+        const wasOpen = group.classList.contains('open');
         const open = group.classList.toggle('open');
         head.setAttribute('aria-expanded', String(open));
+        if (!open && wasOpen) {
+          menu.scrollTop = 0;
+        }
       });
     });
   }
