@@ -284,38 +284,6 @@
     });
   }
 
-  /* ---------- Services mega menu item images (desktop) ---------- */
-  const megaServices = document.getElementById('megaServices');
-
-  if (megaServices) {
-    const servicePreview = {
-      'managed-it': { src: 'assets/services/managed-it.jpg?v=3', pos: 'center 45%' },
-      'ai-automations': { src: 'assets/services/ai-automations.jpg?v=3', pos: '58% center' },
-      'private-cloud': { src: 'assets/services/private-cloud.jpg', pos: 'center center' },
-      'cybersecurity': { src: 'assets/services/cybersecurity.jpg?v=1', pos: 'center center' },
-      'backup-dr': { src: 'assets/services/backup-dr.jpg?v=1', pos: 'center center' },
-      network: { src: 'assets/services/network.jpg?v=4', pos: 'center 42%' },
-    };
-
-    const resolveAsset = (relativeFromRoot) => {
-      const sheet = document.querySelector('link[rel="stylesheet"][href*="styles.css"]');
-      if (!sheet) return relativeFromRoot;
-      const base = new URL(sheet.href, location.href);
-      base.pathname = base.pathname.replace(/css\/[^/]+$/, '');
-      return new URL(relativeFromRoot, base).href;
-    };
-
-    megaServices.querySelectorAll('.mega__grid .mega__item').forEach((item) => {
-      const href = item.getAttribute('href') || '';
-      const slug = Object.keys(servicePreview).find((s) => href.includes(s));
-      if (!slug) return;
-      const cfg = servicePreview[slug];
-      item.classList.add('mega__item--has-img');
-      item.style.setProperty('--mega-img', `url("${resolveAsset(cfg.src)}")`);
-      item.style.setProperty('--mega-img-pos', cfg.pos);
-    });
-  }
-
   /* ---------- Scroll-driven statement reveal ---------- */
   const scrollTypeEl = document.querySelector('[data-scroll-type]');
   if (scrollTypeEl) {
