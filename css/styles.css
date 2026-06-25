@@ -306,12 +306,13 @@ ul { list-style: none; }
 
 .mega {
   --mega-line: rgba(239, 236, 230, 0.09);
-  --mega-aside-w: clamp(300px, 30vw, 420px);
-  --mega-pad-block: clamp(24px, 2.35vw, 30px);
-  --mega-pad-inline: clamp(26px, 2.5vw, 32px);
-  --mega-gap-tight: 10px;
-  --mega-gap-mid: 14px;
-  --mega-gap-loose: 18px;
+  --mega-aside-w: clamp(236px, 29%, 336px);
+  --mega-height: clamp(304px, 27vw, 348px);
+  --mega-pad-block: clamp(20px, 2vw, 26px);
+  --mega-pad-inline: clamp(18px, 1.75vw, 24px);
+  --mega-gap-tight: 9px;
+  --mega-gap-mid: 13px;
+  --mega-gap-loose: 17px;
   position: fixed;
   left: 0;
   right: 0;
@@ -327,6 +328,7 @@ ul { list-style: none; }
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  min-height: var(--mega-height);
   overflow: hidden;
   transition: opacity .32s var(--ease-out), visibility .32s var(--ease-out);
 }
@@ -338,13 +340,29 @@ ul { list-style: none; }
   grid-template-columns: minmax(0, var(--mega-aside-w)) minmax(0, 1fr);
   gap: 0;
   width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  height: clamp(308px, 29.5vw, 352px);
-  min-height: clamp(308px, 29.5vw, 352px);
+  max-width: var(--maxw);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+  height: var(--mega-height);
+  min-height: var(--mega-height);
   align-items: stretch;
+  box-sizing: border-box;
 }
+.mega__inner::before,
+.mega__inner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--mega-line);
+  pointer-events: none;
+  z-index: 3;
+}
+.mega__inner::before { left: var(--pad); }
+.mega__inner::after { right: var(--pad); }
 /* reset nav-link uppercase inheritance inside the panel */
 .mega a { text-transform: none; letter-spacing: normal; font-size: 1rem; font-weight: 500; padding: 0; font-family: var(--font-body); color: inherit; }
 .mega__note { font-family: var(--font-body); }
@@ -356,6 +374,7 @@ ul { list-style: none; }
   flex-direction: column;
   justify-content: center;
   gap: 0;
+  min-width: 0;
   min-height: 100%;
   height: 100%;
   padding: var(--mega-pad-block) var(--mega-pad-inline);
@@ -384,7 +403,7 @@ ul { list-style: none; }
   font-size: .94rem;
   line-height: 1.55;
   color: var(--d-muted);
-  max-width: 36ch;
+  max-width: min(36ch, 100%);
   margin: 0 0 var(--mega-gap-loose);
 }
 .mega__aside .ulink { margin: 0; color: #6fa8ff; font-size: .95rem; align-self: flex-start; gap: 8px; }
@@ -401,41 +420,43 @@ ul { list-style: none; }
   grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 0;
   width: 100%;
+  min-width: 0;
   height: 100%;
   min-height: 100%;
   align-items: stretch;
   align-self: stretch;
+  background-image:
+    linear-gradient(var(--mega-line), var(--mega-line)),
+    linear-gradient(var(--mega-line), var(--mega-line)),
+    linear-gradient(var(--mega-line), var(--mega-line));
+  background-size: 1px 100%, 1px 100%, 100% 1px;
+  background-position: calc(100% / 3) 0, calc(200% / 3) 0, 0 50%;
+  background-repeat: no-repeat;
 }
-.mega__grid::before,
-.mega__grid::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--mega-line);
-  pointer-events: none;
-  z-index: 2;
-}
-.mega__grid::before { left: calc(100% / 3); }
-.mega__grid::after { left: calc(200% / 3); }
 .mega__grid .mega__item {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 0;
   width: 100%;
   height: 100%;
+  min-width: 0;
   min-height: 0;
   margin: 0;
   padding: var(--mega-pad-block) var(--mega-pad-inline);
   border: none;
-  border-bottom: 1px solid var(--mega-line);
   border-radius: 0;
   background: transparent;
   transition: background .3s var(--ease-out);
 }
-.mega__grid .mega__item:nth-child(n + 4) { border-bottom: none; }
+.mega__grid .mega__item:nth-child(3n + 1) {
+  padding-left: max(12px, calc(var(--mega-pad-inline) - 2px));
+}
+.mega__grid .mega__item:nth-child(3n) {
+  padding-right: max(12px, calc(var(--mega-pad-inline) - 2px));
+}
 .mega__grid .mega__item:hover { background: rgba(255, 255, 255, 0.02); }
 .mega__num {
   font-family: var(--font-mono);
@@ -462,9 +483,64 @@ ul { list-style: none; }
   font-size: .86rem;
   line-height: 1.48;
   color: var(--d-muted);
-  max-width: 26ch;
+  max-width: min(26ch, 100%);
   margin: auto 0 0;
   padding-top: var(--mega-gap-mid);
+}
+
+/* Mega menu — desktop breakpoints */
+@media (min-width: 901px) and (max-width: 1099px) {
+  .mega {
+    --mega-aside-w: clamp(208px, 27%, 252px);
+    --mega-height: clamp(288px, 29vw, 318px);
+    --mega-pad-block: clamp(16px, 1.7vw, 20px);
+    --mega-pad-inline: clamp(14px, 1.5vw, 18px);
+    --mega-gap-tight: 7px;
+    --mega-gap-mid: 10px;
+    --mega-gap-loose: 13px;
+  }
+  .mega__lead { font-size: clamp(1.28rem, 2.2vw, 1.46rem); }
+  .mega__note { font-size: .86rem; line-height: 1.5; max-width: 100%; }
+  .mega__title { font-size: clamp(.98rem, 1.35vw, 1.06rem); gap: 8px; }
+  .mega__desc { font-size: .8rem; line-height: 1.42; max-width: 100%; }
+}
+
+@media (min-width: 1100px) and (max-width: 1279px) {
+  .mega {
+    --mega-aside-w: clamp(224px, 28%, 288px);
+    --mega-height: clamp(296px, 28vw, 328px);
+    --mega-pad-block: clamp(18px, 1.9vw, 22px);
+    --mega-pad-inline: clamp(16px, 1.7vw, 22px);
+    --mega-gap-loose: 15px;
+  }
+  .mega__lead { font-size: clamp(1.38rem, 1.95vw, 1.66rem); }
+  .mega__note { max-width: min(32ch, 100%); }
+  .mega__title { font-size: clamp(1.02rem, 1.2vw, 1.12rem); }
+  .mega__desc { max-width: min(24ch, 100%); }
+}
+
+@media (min-width: 1280px) and (max-width: 1599px) {
+  .mega {
+    --mega-aside-w: clamp(232px, 29%, 320px);
+    --mega-height: clamp(304px, 26vw, 340px);
+    --mega-pad-block: clamp(20px, 1.9vw, 24px);
+    --mega-pad-inline: clamp(18px, 1.7vw, 22px);
+  }
+}
+
+@media (min-width: 1600px) {
+  .mega {
+    --mega-aside-w: clamp(260px, 28%, 360px);
+    --mega-height: clamp(320px, 20vw, 360px);
+    --mega-pad-block: clamp(22px, 1.6vw, 28px);
+    --mega-pad-inline: clamp(20px, 1.5vw, 26px);
+    --mega-gap-mid: 14px;
+    --mega-gap-loose: 18px;
+  }
+  .mega__lead { font-size: clamp(1.58rem, 1.45vw, 2.05rem); }
+  .mega__note { max-width: min(38ch, 100%); font-size: .96rem; }
+  .mega__title { font-size: clamp(1.12rem, 1vw, 1.22rem); }
+  .mega__desc { max-width: min(28ch, 100%); font-size: .88rem; }
 }
 
 .mobile-menu {
