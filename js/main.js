@@ -401,15 +401,40 @@
   const list = document.getElementById('svcList');
   if (list) {
     const rows = Array.from(list.querySelectorAll('.svc-row'));
-    rows.forEach(row => {
+    const desktopHover = window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
+
+    const setOpenRow = (target) => {
+      rows.forEach((row) => {
+        const open = row === target;
+        row.classList.toggle('open', open);
+        row.querySelector('.svc-row__head').setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    };
+
+    rows.forEach((row) => {
       const head = row.querySelector('.svc-row__head');
       head.addEventListener('click', () => {
         const isOpen = row.classList.contains('open');
-        rows.forEach(r => { r.classList.remove('open'); r.querySelector('.svc-row__head').setAttribute('aria-expanded', 'false'); });
-        if (!isOpen) { row.classList.add('open'); head.setAttribute('aria-expanded', 'true'); }
+        rows.forEach((r) => {
+          r.classList.remove('open');
+          r.querySelector('.svc-row__head').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          row.classList.add('open');
+          head.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      row.addEventListener('mouseenter', () => {
+        if (desktopHover.matches) setOpenRow(row);
+      });
+
+      row.addEventListener('focusin', () => {
+        if (desktopHover.matches) setOpenRow(row);
       });
     });
-    if (rows[0]) { rows[0].classList.add('open'); rows[0].querySelector('.svc-row__head').setAttribute('aria-expanded', 'true'); }
+
+    if (rows[0]) setOpenRow(rows[0]);
   }
 
   /* ---------- Parallax on media ---------- */
