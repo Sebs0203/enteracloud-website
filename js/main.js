@@ -204,12 +204,33 @@
     loadHeroVideo(desktopHeroVideo, !isMobile);
     loadHeroVideo(mobileHeroVideo, isMobile);
   };
-  syncHeroVideos();
+  const bootHeroVideos = () => {
+    if (bootHeroVideos.done) return;
+    bootHeroVideos.done = true;
+    syncHeroVideos();
+  };
+  const heroMedia = document.querySelector('.hero__media');
+  if (heroMedia && 'IntersectionObserver' in window) {
+    const heroVideoObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        bootHeroVideos();
+        heroVideoObserver.disconnect();
+      }
+    }, { rootMargin: '120px' });
+    heroVideoObserver.observe(heroMedia);
+  } else {
+    bootHeroVideos();
+  }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => bootHeroVideos(), { timeout: 3000 });
+  } else {
+    setTimeout(bootHeroVideos, 1500);
+  }
 
   mobileNavMq.addEventListener('change', () => {
     closeAllMega();
     if (!mobileNavMq.matches) closeMobileMenu(undefined, true);
-    syncHeroVideos();
+    bootHeroVideos();
     updateScrollFx();
   });
 
@@ -260,6 +281,38 @@
   } else {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeMobileMenu();
+    });
+  }
+
+  /* ---------- Services mega menu item images (desktop) ---------- */
+  const megaServices = document.getElementById('megaServices');
+
+  if (megaServices) {
+    const servicePreview = {
+      'managed-it': { src: 'assets/services/managed-it.jpg?v=3', pos: 'center 45%' },
+      'ai-automations': { src: 'assets/services/ai-automations.jpg?v=3', pos: '58% center' },
+      'private-cloud': { src: 'assets/services/private-cloud.jpg', pos: 'center center' },
+      'cybersecurity': { src: 'assets/services/cybersecurity.jpg?v=1', pos: 'center center' },
+      'backup-dr': { src: 'assets/services/backup-dr.jpg?v=1', pos: 'center center' },
+      network: { src: 'assets/services/network.jpg?v=4', pos: 'center 42%' },
+    };
+
+    const resolveAsset = (relativeFromRoot) => {
+      const sheet = document.querySelector('link[rel="stylesheet"][href*="styles.css"]');
+      if (!sheet) return relativeFromRoot;
+      const base = new URL(sheet.href, location.href);
+      base.pathname = base.pathname.replace(/css\/[^/]+$/, '');
+      return new URL(relativeFromRoot, base).href;
+    };
+
+    megaServices.querySelectorAll('.mega__grid .mega__item').forEach((item) => {
+      const href = item.getAttribute('href') || '';
+      const slug = Object.keys(servicePreview).find((s) => href.includes(s));
+      if (!slug) return;
+      const cfg = servicePreview[slug];
+      item.classList.add('mega__item--has-img');
+      item.style.setProperty('--mega-img', `url("${resolveAsset(cfg.src)}")`);
+      item.style.setProperty('--mega-img-pos', cfg.pos);
     });
   }
 
@@ -408,11 +461,34 @@
         const open = row === target;
         row.classList.toggle('open', open);
         row.querySelector('.svc-row__head').setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          const img = row.querySelector('.svc-row__banner-img');
+          if (img && !img.complete) img.decode?.().catch(() => {});
+        }
       });
     };
 
-    rows.forEach((row) => {
+    const serviceLinks = [
+      'services/managed-it.html',
+      'services/ai-automations.html',
+      'services/private-cloud.html',
+      'services/cybersecurity.html',
+      'services/backup-dr.html',
+      'services/network.html',
+    ];
+
+    rows.forEach((row, index) => {
       const head = row.querySelector('.svc-row__head');
+      const link = row.querySelector('.svc-row__meta .ulink');
+      const href = serviceLinks[index];
+
+      if (link && href) {
+        link.setAttribute('href', href);
+        link.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+      }
+
       head.addEventListener('click', () => {
         const isOpen = row.classList.contains('open');
         rows.forEach((r) => {
@@ -422,6 +498,8 @@
         if (!isOpen) {
           row.classList.add('open');
           head.setAttribute('aria-expanded', 'true');
+          const img = row.querySelector('.svc-row__banner-img');
+          if (img && !img.complete) img.decode?.().catch(() => {});
         }
       });
 
@@ -434,7 +512,6 @@
       });
     });
 
-    if (rows[0]) setOpenRow(rows[0]);
   }
 
   /* ---------- Parallax on media ---------- */

@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=160" />
+<link rel="preload" as="image" href="assets/hero-datacenter.jpg" fetchpriority="high" />
+<link rel="stylesheet" href="css/styles.css?v=178" />
 </head>
 <body class="has-dark-hero">
 
@@ -196,9 +197,9 @@
 <section class="hero" id="top">
   <div class="hero__media">
     <div class="fallback" aria-hidden="true"></div>
-    <img class="hero__bg" src="assets/hero-datacenter.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
-    <video class="hero__video hero__video--desktop" autoplay muted loop playsinline disablePictureInPicture aria-hidden="true" poster="assets/hero-datacenter.png" preload="none" data-src="assets/desktop-bg.mp4"></video>
-    <video class="hero__video hero__video--mobile" autoplay muted loop playsinline disablePictureInPicture aria-hidden="true" poster="assets/hero-datacenter.png" preload="none" data-src="assets/mobile-bg.mp4"></video>
+    <img class="hero__bg" src="assets/hero-datacenter.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" />
+    <video class="hero__video hero__video--desktop" autoplay muted loop playsinline disablePictureInPicture aria-hidden="true" poster="assets/hero-poster.jpg" preload="none" data-src="assets/desktop-bg.mp4"></video>
+    <video class="hero__video hero__video--mobile" autoplay muted loop playsinline disablePictureInPicture aria-hidden="true" poster="assets/hero-poster.jpg" preload="none" data-src="assets/mobile-bg.mp4"></video>
   </div>
   <div class="hero__scrim"></div>
 
@@ -269,7 +270,7 @@
         </button>
         <div class="svc-row__panel"><div><div class="svc-row__body">
           <figure class="svc-row__banner">
-            <img class="svc-row__banner-img" src="assets/services/managed-it.png" alt="" width="1440" height="618" loading="lazy" decoding="async" />
+            <img class="svc-row__banner-img svc-row__banner-img--mit" src="assets/services/managed-it.jpg?v=3" alt="Managed IT team monitoring systems in a modern operations center" width="960" height="540" loading="lazy" decoding="async" />
             <figcaption class="svc-row__banner-cap">
               <span class="svc-row__banner-num">01</span>
               <span class="svc-row__banner-title">Managed IT</span>
@@ -291,7 +292,7 @@
         </button>
         <div class="svc-row__panel"><div><div class="svc-row__body">
           <figure class="svc-row__banner">
-            <img class="svc-row__banner-img svc-row__banner-img--ai" src="assets/hero-datacenter.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+            <img class="svc-row__banner-img svc-row__banner-img--ai" src="assets/services/ai-automations.jpg?v=3" alt="Engineer interacting with a holographic AI automation interface" width="960" height="540" loading="lazy" decoding="async" />
             <figcaption class="svc-row__banner-cap">
               <span class="svc-row__banner-num">02</span>
               <span class="svc-row__banner-title">AI Automations</span>
@@ -313,7 +314,7 @@
         </button>
         <div class="svc-row__panel"><div><div class="svc-row__body">
           <figure class="svc-row__banner">
-            <img class="svc-row__banner-img" src="assets/services/private-cloud.png" alt="" width="1440" height="618" loading="lazy" decoding="async" />
+            <img class="svc-row__banner-img" src="assets/services/private-cloud.jpg" alt="" width="960" height="640" loading="lazy" decoding="async" />
             <figcaption class="svc-row__banner-cap">
               <span class="svc-row__banner-num">03</span>
               <span class="svc-row__banner-title">Private Cloud</span>
@@ -335,7 +336,7 @@
         </button>
         <div class="svc-row__panel"><div><div class="svc-row__body">
           <figure class="svc-row__banner">
-            <img class="svc-row__banner-img svc-row__banner-img--sec" src="assets/hero-datacenter.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+            <img class="svc-row__banner-img svc-row__banner-img--sec" src="assets/services/cybersecurity.jpg?v=1" alt="Holographic padlock projected above server hardware in a secure data center" width="1024" height="385" loading="eager" decoding="async" />
             <figcaption class="svc-row__banner-cap">
               <span class="svc-row__banner-num">04</span>
               <span class="svc-row__banner-title">Cybersecurity</span>
@@ -357,7 +358,7 @@
         </button>
         <div class="svc-row__panel"><div><div class="svc-row__body">
           <figure class="svc-row__banner">
-            <img class="svc-row__banner-img svc-row__banner-img--bdr" src="assets/hero-datacenter.png" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+            <img class="svc-row__banner-img svc-row__banner-img--bdr" src="assets/services/backup-dr.jpg?v=1" alt="Symmetric aisle of secure green server cabinets in a data center" width="960" height="543" loading="lazy" decoding="async" />
             <figcaption class="svc-row__banner-cap">
               <span class="svc-row__banner-num">05</span>
               <span class="svc-row__banner-title">Backup &amp; DR</span>
@@ -379,7 +380,7 @@
         </button>
         <div class="svc-row__panel"><div><div class="svc-row__body">
           <figure class="svc-row__banner">
-            <img class="svc-row__banner-img" src="assets/services/network.png" alt="" width="1440" height="618" loading="lazy" decoding="async" />
+            <img class="svc-row__banner-img svc-row__banner-img--network" src="assets/services/network.jpg?v=4" alt="City skyline at night with glowing network connections between buildings" width="960" height="640" loading="lazy" decoding="async" />
             <figcaption class="svc-row__banner-cap">
               <span class="svc-row__banner-num">06</span>
               <span class="svc-row__banner-title">Network</span>
@@ -939,7 +940,7 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=53"></script>
+<script src="js/main.js?v=59"></script>
 <script src="js/beacon.js?v=1"></script>
 <script src="js/vendor/rrweb.min.js?v=2.0.1" defer></script>
 <script src="js/replay.js?v=1" defer></script>
