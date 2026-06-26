@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/hero-datacenter.jpg" fetchpriority="high" />
-<link rel="stylesheet" href="css/styles.css?v=213" />
+<link rel="stylesheet" href="css/styles.css?v=220" />
 </head>
 <body class="has-dark-hero">
 
@@ -246,7 +246,7 @@
       </p>
     </div>
     <div class="statement__foot" data-stagger id="stats">
-      <div><div class="n"><span id="statServers" data-count="3000" data-suffix="+" data-count-duration="2400">0</span></div><div class="t">Servers under management</div></div>
+      <div><div class="n"><span id="statServers" data-count="500" data-suffix="+" data-count-duration="2400">0</span></div><div class="t">Servers under management</div></div>
       <div><div class="n"><span data-count="50" data-suffix="+">0</span></div><div class="t">Enterprise clients</div></div>
       <div><div class="n"><span>2</span> <span class="suf">/ 24·7</span></div><div class="t">Owned data centers, staffed around the clock</div></div>
     </div>
@@ -736,19 +736,48 @@
 </section>
 
 <!-- ============ INDUSTRIES ============ -->
-<section class="section section--sm" id="industries">
+<section class="section section--sm section--industries" id="industries">
   <div class="wrap">
-    <div style="margin-bottom:clamp(36px,5vw,64px)" data-fade>
+    <div class="industries-head" data-fade>
       <span class="eyebrow">03 Industries</span>
       <h2 class="display d-md" style="margin-top:18px;max-width:18ch">Built for regulated, <span class="serif-italic">always-on</span> work.</h2>
     </div>
-    <div class="ind-grid" data-stagger>
-      <div class="ind"><span class="n">/ Legal</span><h3>Legal</h3><p>Chain-of-custody backups and immutable retention for discovery you can defend in court.</p></div>
-      <div class="ind"><span class="n">/ Healthcare</span><h3>Healthcare</h3><p>HIPAA-aligned hosting with audited access. Patient data that never leaves jurisdictions you trust.</p></div>
-      <div class="ind"><span class="n">/ Finance</span><h3>Finance</h3><p>Low-latency, PCI-ready environments where a millisecond and an audit trail both matter.</p></div>
-      <div class="ind"><span class="n">/ Government</span><h3>Government</h3><p>US-owned, US-staffed facilities. Sovereignty isn't a checkbox, it's the building.</p></div>
-      <div class="ind"><span class="n">/ Manufacturing</span><h3>Manufacturing</h3><p>Edge-to-core resilience that keeps the line running when the cloud has a bad day.</p></div>
-      <div class="ind"><span class="n">/ SaaS &amp; Tech</span><h3>SaaS &amp; Tech</h3><p>Dedicated capacity that scales without the egress bill shock of the hyperscalers.</p></div>
+    <div class="ind-bento" data-stagger>
+      <a class="ind ind--legal" href="industries/legal.html">
+        <span class="ind__pattern ind__pattern--grid" aria-hidden="true"></span>
+        <span class="n">/ Legal</span>
+        <h3>Legal</h3>
+        <p>Chain-of-custody backups and immutable retention for discovery you can defend in court.</p>
+      </a>
+      <a class="ind ind--healthcare" href="industries/healthcare.html">
+        <span class="ind__pattern ind__pattern--dots" aria-hidden="true"></span>
+        <span class="n">/ Healthcare</span>
+        <h3>Healthcare</h3>
+        <p>HIPAA-aligned hosting with audited access. Patient data that never leaves jurisdictions you trust.</p>
+      </a>
+      <a class="ind ind--finance" href="industries/finance.html">
+        <span class="ind__pattern ind__pattern--dots" aria-hidden="true"></span>
+        <span class="n">/ Finance</span>
+        <h3>Finance</h3>
+        <p>Low-latency, PCI-ready environments where a millisecond and an audit trail both matter.</p>
+      </a>
+      <a class="ind ind--government" href="industries/government.html">
+        <span class="n">/ Government</span>
+        <h3>Government</h3>
+        <p>US-owned, US-staffed facilities. Sovereignty isn't a checkbox, it's the building.</p>
+      </a>
+      <a class="ind ind--manufacturing" href="industries/manufacturing.html">
+        <span class="ind__pattern ind__pattern--grid" aria-hidden="true"></span>
+        <span class="n">/ Manufacturing</span>
+        <h3>Manufacturing</h3>
+        <p>Edge-to-core resilience that keeps the line running when the cloud has a bad day.</p>
+      </a>
+      <a class="ind ind--saas" href="industries/saas-tech.html">
+        <span class="ind__pattern ind__pattern--dots" aria-hidden="true"></span>
+        <span class="n">/ SaaS &amp; Tech</span>
+        <h3>SaaS &amp; Tech</h3>
+        <p>Dedicated capacity that scales without the egress bill shock of the hyperscalers.</p>
+      </a>
     </div>
   </div>
 </section>
