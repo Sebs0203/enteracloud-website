@@ -638,41 +638,49 @@
   const fitFooterWordmark = () => {
     if (!footerWordmark) return;
 
+    const logo = footerWordmark.querySelector('.footer__wordmark-logo');
     const targetW = getWordmarkTargetWidth();
     if (targetW < 1) return;
 
     footerWordmark.style.transform = '';
-    footerWordmark.style.display = 'inline-block';
-    footerWordmark.style.width = 'auto';
+    footerWordmark.style.display = 'flex';
+    footerWordmark.style.width = '100%';
     footerWordmark.style.maxWidth = `${targetW}px`;
-    footerWordmark.style.fontSize = '16px';
 
-    let lo = 12;
-    let hi = 600;
-    let best = lo;
+    if (logo) {
+      logo.style.width = `${targetW}px`;
+      logo.style.height = 'auto';
+      logo.style.maxWidth = '100%';
+    } else {
+      footerWordmark.style.fontSize = '16px';
 
-    while (lo <= hi) {
-      const mid = (lo + hi) >> 1;
-      footerWordmark.style.fontSize = `${mid}px`;
-      if (footerWordmark.scrollWidth <= targetW) {
-        best = mid;
-        lo = mid + 1;
-      } else {
-        hi = mid - 1;
+      let lo = 12;
+      let hi = 600;
+      let best = lo;
+
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        footerWordmark.style.fontSize = `${mid}px`;
+        if (footerWordmark.scrollWidth <= targetW) {
+          best = mid;
+          lo = mid + 1;
+        } else {
+          hi = mid - 1;
+        }
+      }
+
+      footerWordmark.style.fontSize = `${best}px`;
+      document.documentElement.style.setProperty('--footer-wordmark-size', `${best}px`);
+
+      const textW = footerWordmark.getBoundingClientRect().width;
+      if (textW > targetW) {
+        footerWordmark.style.transform = `scale(${targetW / textW})`;
       }
     }
 
-    footerWordmark.style.fontSize = `${best}px`;
-    document.documentElement.style.setProperty('--footer-wordmark-size', `${best}px`);
-
-    const textW = footerWordmark.getBoundingClientRect().width;
-    if (textW > targetW) {
-      footerWordmark.style.transform = `scale(${targetW / textW})`;
-    }
-
     const pad = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--footer-reveal-pad')) || 32;
-    const textH = footerWordmark.getBoundingClientRect().height;
-    document.documentElement.style.setProperty('--footer-reveal-h', `${Math.ceil(textH + pad * 2)}px`);
+    const markH = footerWordmark.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--footer-reveal-h', `${Math.ceil(markH + pad * 2)}px`);
   };
 
   let revealRange = 0;
