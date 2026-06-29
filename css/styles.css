@@ -215,7 +215,7 @@ ul { list-style: none; }
 .brand { display: flex; align-items: center; line-height: 0; flex-shrink: 0; }
 .brand__logo {
   display: block;
-  height: clamp(14px, 1.7vw, 19px);
+  height: clamp(12px, 1.5vw, 17px);
   width: auto;
   transition: opacity .25s;
 }
