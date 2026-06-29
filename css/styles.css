@@ -19,6 +19,12 @@
   --accent:    #1D74FF;   /* brand electric blue */
   --accent-ink:#0F57CC;
 
+  /* Brand logo — nav 100%, footer brand 88% */
+  --nav-logo-h-min: 14px;
+  --nav-logo-h-pref: 1.65vw;
+  --nav-logo-h-max: 18px;
+  --footer-logo-scale: 0.88;
+
   /* Dark scope (hero media / footer) */
   --d-bg:      #14130F;
   --d-ink:     #EFECE6;
@@ -215,9 +221,18 @@ ul { list-style: none; }
 .brand { display: flex; align-items: center; line-height: 0; flex-shrink: 0; }
 .brand__logo {
   display: block;
-  height: clamp(12px, 1.5vw, 17px);
   width: auto;
   transition: opacity .25s;
+}
+.nav .brand__logo {
+  height: clamp(var(--nav-logo-h-min), var(--nav-logo-h-pref), var(--nav-logo-h-max));
+}
+.footer__brand .brand__logo {
+  height: clamp(
+    calc(var(--nav-logo-h-min) * var(--footer-logo-scale)),
+    calc(var(--nav-logo-h-pref) * var(--footer-logo-scale)),
+    calc(var(--nav-logo-h-max) * var(--footer-logo-scale))
+  );
 }
 .brand:hover .brand__logo { opacity: 0.82; }
 .nav-links { display: flex; align-items: center; gap: 6px; }
@@ -1968,9 +1983,13 @@ html.footer-sandwich-off .site-footer__track > .footer__bar {
   .hero__loc { white-space: normal; }
 }
 @media (max-width: 900px) {
+  :root {
+    --nav-logo-h-min: 17px;
+    --nav-logo-h-pref: 4vw;
+    --nav-logo-h-max: 21px;
+  }
   .nav-links, .nav-actions { display: none; }
   .nav-toggle { display: flex; }
-  .nav .brand__logo { height: clamp(15px, 3.8vw, 20px); }
   .mega { display: none !important; }
   .split, .contact-grid { grid-template-columns: 1fr; }
   .form-panel { border-left: 0; border-top: 1px solid var(--d-line); }
