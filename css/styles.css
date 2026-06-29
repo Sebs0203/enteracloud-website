@@ -1970,6 +1970,7 @@ html.footer-sandwich-off .site-footer__track > .footer__bar {
 @media (max-width: 900px) {
   .nav-links, .nav-actions { display: none; }
   .nav-toggle { display: flex; }
+  .nav .brand__logo { height: clamp(15px, 3.8vw, 20px); }
   .mega { display: none !important; }
   .split, .contact-grid { grid-template-columns: 1fr; }
   .form-panel { border-left: 0; border-top: 1px solid var(--d-line); }
