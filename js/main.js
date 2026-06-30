@@ -238,7 +238,8 @@
   mobileNavMq.addEventListener('change', () => {
     closeAllMega();
     if (!mobileNavMq.matches) closeMobileMenu(undefined, true);
-    bootHeroVideos();
+    if (bootHeroVideos.done) syncHeroVideos();
+    else bootHeroVideos();
     updateScrollFx();
   });
 
