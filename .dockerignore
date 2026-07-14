@@ -2,3 +2,7 @@
 .gitignore
 .cursor
 *.py
+.agents
+skills-lock.json
+*.md
+.dockerignore
